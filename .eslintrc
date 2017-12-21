@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "for-direction": 0,
+    "function-paren-newline": 0,
+    "getter-return": 0,
+    "no-buffer-constructor": 0,
+    "switch-colon-spacing": 0,
+    "semi-style": 0,
+    "linebreak-style": ["error", "windows"],
+    "object-curly-newline": ["error", { "multiline": true }]
+  }
+}
