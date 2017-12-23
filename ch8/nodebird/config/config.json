@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Wpfhsms0!",
+    "password": "[root 비밀번호]",
     "database": "nodebird",
     "host": "127.0.0.1",
     "dialect": "mysql"
