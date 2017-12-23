@@ -4,7 +4,7 @@ function parseCookies(req) {
   const list = {};
   const cookieString = req.headers.cookie;
   if (cookieString) {
-    cookieString.split(';').forEach(function (cookie) {
+    cookieString.split(';').forEach((cookie) => {
       const parts = cookie.split('=');
       list[parts.shift().trim()] = decodeURI(parts.join('='));
     });

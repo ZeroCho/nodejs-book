@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .timeline
+        .followings.half
+            h2 팔로잉 목록
+            for following in user.following
+                div= following.nick
+        .followers.half
+            h2 팔로워 목록
+            for follower in user.follower
+                div= follower.nick

@@ -1,0 +1,27 @@
+{
+  "name": "nodebird",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "ZeroCho",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "mysql2": "^1.5.1",
+    "passport": "^0.4.0",
+    "passport-kakao": "0.0.5",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.0-rc.4",
+    "sequelize": "^4.28.0"
+  }
+}
