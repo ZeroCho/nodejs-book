@@ -19,7 +19,7 @@ const upload = multer({
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
-router.post('/img', isLoggedIn, upload.single('img'), (req, res, next) => {
+router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
   console.log(req.file);
   res.json({ url: req.file.filename });
 });
@@ -32,10 +32,10 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       img: req.body.url,
       userId: req.user.id,
     });
-    const hashtags = req.body.content.match(/#.+?(?=\s)/g);
+    const hashtags = req.body.content.match(/#[^\s]*/g);
     if (hashtags) {
       const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({ where: { title: tag.slice(1).toLowerCase() } })));
-      await post.addHashtag(result.map(r => r[0]));
+      await post.addHashtags(result.map(r => r[0]));
     }
     res.redirect('/');
   } catch (error) {
@@ -50,13 +50,13 @@ router.get('/hashtag', async (req, res, next) => {
     return res.redirect('/');
   }
   try {
-    const hashtag = await Hashtag.find({ where: { title: query }});
+    const hashtag = await Hashtag.find({ where: { title: query } });
     let posts = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });
     }
-    res.render('main', { title: query + ' | NodeBird', user: req.user, twits: posts });
-  } catch(error) {
+    res.render('main', { title: `${query} | NodeBird`, user: req.user, twits: posts });
+  } catch (error) {
     console.error(error);
     next(error);
   }

@@ -1,0 +1,227 @@
+doctype html
+html
+head
+    meta(charset='utf-8')
+    title 몽구스 서버
+    style.
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+        }
+body
+    div
+        form#user-form
+            fieldset
+                legend 사용자 등록
+                div
+                    input#username(type="text" placeholder="이름")
+                div
+                    input#age(type="number" placeholder="나이")
+                div
+                    input#married(type="checkbox")
+                    label(for="married") 결혼 여부
+                button(type="submit") 등록
+    br
+    table#user-list
+        thead
+            tr
+                th 아이디
+                th 이름
+                th 나이
+                th 결혼여부
+        tbody
+            for user in users
+                tr
+                    td= user._id
+                    td= user.name
+                    td= user.age
+                    td= user.married ? '기혼' : '미혼'
+    br
+    div
+        form#comment-form
+            fieldset
+                legend 댓글 등록
+                div
+                    input#userid(type="text" placeholder="사용자 아이디")
+                div
+                    input#comment(type="text" placeholder="댓글")
+                button(type="submit") 등록
+    br
+    table#comment-list
+        thead
+            tr
+                th 아이디
+                th 작성자
+                th 댓글
+                th 수정
+                th 삭제
+        tbody
+
+    script.
+      Array.prototype.forEach.call(document.getElementById('user-list').getElementsByTagName('tr'), function (el) {
+        el.addEventListener('click', function () {
+          var id = el.getElementsByTagName('td')[0].textContent;
+          getComment(id);
+        });
+      });
+
+      function getUser() {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var users = JSON.parse(xhr.responseText);
+            console.log(users);
+            var tbody = document.getElementById('user-list').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            users.map(function (user) {
+              var row = document.createElement('tr');
+              row.addEventListener('click', function () {
+                getComment(user._id);
+              });
+              var td = document.createElement('td');
+              td.textContent = user._id;
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.textContent = user.name;
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.textContent = user.age;
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.textContent = user.married ? '기혼' : '미혼';
+              row.appendChild(td);
+              tbody.appendChild(row);
+            });
+          } else {
+            console.error(xhr.responseText);
+          }
+        };
+        xhr.open('GET', '/users');
+        xhr.send();
+      }
+
+      function getComment(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var comments = JSON.parse(xhr.responseText);
+            var tbody = document.getElementById('comment-list').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            comments.map(function (comment) {
+              var row = document.createElement('tr');
+              var td = document.createElement('td');
+              td.textContent = comment._id;
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.textContent = comment.commenter.name;
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.textContent = comment.comment;
+              row.appendChild(td);
+              var edit = document.createElement('button');
+              edit.textContent = '수정';
+              edit.addEventListener('click', function () {
+                var newComment = prompt('바꿀 내용을 입력하세요');
+                if (!newComment) {
+                  return alert('내용을 반드시 입력하셔야 합니다');
+                }
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                  if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    getComment(id);
+                  } else {
+                    console.error(xhr.responseText);
+                  }
+                };
+                xhr.open('PATCH', '/comments/' + comment._id);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({ comment: newComment }));
+              });
+              var remove = document.createElement('button');
+              remove.textContent = '삭제';
+              remove.addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                  if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    getComment(id);
+                  } else {
+                    console.error(xhr.responseText);
+                  }
+                };
+                xhr.open('DELETE', '/comments/' + comment._id);
+                xhr.send();
+              });
+              td = document.createElement('td');
+              td.appendChild(edit)
+              row.appendChild(td);
+              td = document.createElement('td');
+              td.appendChild(remove);
+              row.appendChild(td);
+              tbody.appendChild(row);
+            });
+          } else {
+            console.error(xhr.responseText);
+          }
+        };
+        xhr.open('GET', '/comments/' + id);
+        xhr.send();
+      }
+
+      document.getElementById('user-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = e.target.username.value;
+        var age = e.target.age.value;
+        var married = e.target.married.checked;
+        if (!name) {
+          return alert('이름을 입력하세요');
+        }
+        if (!age) {
+          return alert('나이를 입력하세요');
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status === 201) {
+            console.log(xhr.responseText);
+            getUser();
+          } else {
+            console.error(xhr.responseText);
+          }
+        };
+        xhr.open('POST', '/users');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ name: name, age: age, married: married }));
+        e.target.username.value = '';
+        e.target.age.value = '';
+        e.target.married.checked = false;
+      });
+      document.getElementById('comment-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var id = e.target.userid.value;
+        var comment = e.target.comment.value;
+        if (!id) {
+          return alert('아이디를 입력하세요');
+        }
+        if (!comment) {
+          return alert('댓글을 입력하세요');
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status === 201) {
+            console.log(xhr.responseText);
+            getComment(id);
+          } else {
+            console.error(xhr.responseText);
+          }
+        };
+        xhr.open('POST', '/comments');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ id: id, comment: comment }));
+        e.target.userid.value = '';
+        e.target.comment.value = '';
+      });

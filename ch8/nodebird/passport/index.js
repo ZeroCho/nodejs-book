@@ -12,14 +12,16 @@ module.exports = (passport) => {
       where: { id },
       include: [{
         model: User,
-        as: 'following',
+        attributes: ['id', 'nick'],
+        as: 'Followers',
       }, {
         model: User,
-        as: 'follower',
+        attributes: ['id', 'nick'],
+        as: 'Followings',
       }],
     })
-      .then((user) => done(null, user))
-      .catch((err) => done(err));
+      .then(user => done(null, user))
+      .catch(err => done(err));
   });
 
   local(passport);

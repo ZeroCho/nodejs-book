@@ -6,9 +6,9 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 
+const page = require('./routes/page');
 const auth = require('./routes/auth');
 const post = require('./routes/post');
-const page = require('./routes/page');
 const user = require('./routes/user');
 const passportConfig = require('./passport');
 const { sequelize } = require('./models');
@@ -24,27 +24,27 @@ app.set('port', 8001 || process.env.PORT);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-const sessionOption = {
-  resave: true,
+app.use(cookieParser('nodebirdsecret'));
+app.use(session({
+  resave: false,
   saveUninitialized: false,
   secret: 'nodebirdsecret',
   cookie: {
     httpOnly: true,
     secure: false,
   },
-};
-app.use(session(sessionOption));
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 
+app.use('/', page);
 app.use('/auth', auth);
 app.use('/post', post);
 app.use('/user', user);
-app.use('/', page);
+
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;

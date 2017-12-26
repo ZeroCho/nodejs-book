@@ -23,5 +23,8 @@
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.4",
     "sequelize": "^4.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.3"
   }
 }

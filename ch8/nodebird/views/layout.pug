@@ -14,10 +14,10 @@ html
                         .user-name= '안녕하세요! ' + user.nick + '님'
                         .half
                             div 팔로잉
-                            .count.following-count= user.following.length
+                            .count.following-count= user.Followings.length
                         .half
                             div 팔로워
-                            .count.follower-count= user.follower.length
+                            .count.follower-count= user.Followers.length
                         input#my-id(type='hidden' value=user.id)
                         a(href='/profile'): button#my-profile 내 프로필
                         a(href='/auth/logout'): button#logout 로그아웃
@@ -34,8 +34,7 @@ html
                             a(href='/join'): button#join(type='button') 회원가입
                             button#login(type='submit') 로그인
                             a(href='/auth/kakao'): button#kakao(type='button') 카카오톡
-                div
+                footer
                     | Made by&nbsp;
                     a(href='https://www.zerocho.com' target='_blank') ZeroCho
             block content
-        script(src='https://code.jquery.com/jquery-3.2.1.min.js')

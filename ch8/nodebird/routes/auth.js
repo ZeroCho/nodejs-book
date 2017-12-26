@@ -8,23 +8,20 @@ const router = express.Router();
 
 router.post('/join', async (req, res, next) => {
   const { email, nick, password } = req.body;
-  console.log(email, nick, password);
   try {
     const exUser = await User.find({ where: { email } });
-    console.log(exUser);
     if (exUser) {
       req.flash('joinError', '이미 가입된 이메일입니다.');
       return res.redirect('/join');
-    } else {
-      const hash = await bcrypt.hash(password, 10);
-      const result = await User.create({
-        email,
-        nick,
-        password: hash,
-      });
-      return res.redirect('/');
     }
-  } catch(error) {
+    const hash = await bcrypt.hash(password, 12);
+    await User.create({
+      email,
+      nick,
+      password: hash,
+    });
+    return res.redirect('/');
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -56,10 +53,10 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/kakao', passport.authenticate('kakao'));
+
 router.get('/kakao/callback', passport.authenticate('kakao', { failureRedirect: '/' }), (req, res) => {
   res.redirect('/');
 });
-
-router.get('/kakao', passport.authenticate('kakao'));
 
 module.exports = router;
