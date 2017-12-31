@@ -1,5 +1,5 @@
 {
-  "name": "learn-express",
+  "name": "learn-sequelize",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,14 +7,14 @@
   },
   "dependencies": {
     "body-parser": "~1.17.1",
-    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
-    "express-session": "^1.15.6",
     "method-override": "^2.3.9",
     "morgan": "~1.8.1",
+    "mysql2": "^1.4.2",
     "pug": "~2.0.0-beta11",
+    "sequelize": "^4.15.0",
     "serve-favicon": "~2.4.2"
   }
 }
