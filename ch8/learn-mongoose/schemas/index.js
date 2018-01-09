@@ -24,6 +24,6 @@ module.exports = () => {
     connect();
   });
 
-  require('./users');
-  require('./comments');
+  require('./user');
+  require('./comment');
 };

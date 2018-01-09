@@ -1,16 +1,13 @@
 var express = require('express');
-var User = require('../models').User;
-var Comment = require('../models').Comment;
+var { User, Comment } = require('../models');
 
 var router = express.Router();
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function(req, res, next) {
   Comment.findAll({
     include: {
       model: User,
-      where: {
-        id: req.params.id,
-      },
+      where: { id: req.params.id },
     },
   })
     .then((comments) => {
@@ -23,7 +20,7 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
   Comment.create({
     commenter: req.body.id,
     comment: req.body.comment,
@@ -38,14 +35,8 @@ router.post('/', function (req, res, next) {
     });
 });
 
-router.patch('/:id', function (req, res, next) {
-  Comment.update({
-    comment: req.body.comment,
-  }, {
-    where: {
-      id: req.params.id,
-    },
-  })
+router.patch('/:id', function(req, res, next) {
+  Comment.update({ comment: req.body.comment }, { where: { id: req.params.id } })
     .then((result) => {
       res.json(result);
     })
@@ -55,12 +46,8 @@ router.patch('/:id', function (req, res, next) {
     });
 });
 
-router.delete('/:id', function (req, res, next) {
-  Comment.destroy({
-    where: {
-      id: req.params.id,
-    },
-  })
+router.delete('/:id', function(req, res, next) {
+  Comment.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.json(result);
     })

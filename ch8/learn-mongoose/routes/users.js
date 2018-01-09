@@ -1,10 +1,10 @@
 var express = require('express');
-var Users = require('../schemas/users');
+var User = require('../schemas/user');
 
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  Users.find({})
+  User.find({})
     .then((users) => {
       res.json(users);
     })
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const user = new Users({
+  const user = new User({
     name: req.body.name,
     age: req.body.age,
     married: req.body.married,

@@ -1,11 +1,10 @@
 var express = require('express');
-var Users = require('../models').User;
-var Comments = require('../schemas/comments');
+var Comment = require('../schemas/comment');
 
 var router = express.Router();
 
 router.get('/:id', function (req, res, next) {
-  Comments.find({ commenter: req.params.id }).populate('commenter')
+  Comment.find({ commenter: req.params.id }).populate('commenter')
     .then((comments) => {
       console.log(comments);
       res.json(comments);
@@ -17,7 +16,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const comment = new Comments({
+  const comment = new Comment({
     commenter: req.body.id,
     comment: req.body.comment,
   });
@@ -33,11 +32,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', function (req, res, next) {
-  Comments.update({
-    _id: req.params.id,
-  }, {
-    comment: req.body.comment,
-  })
+  Comment.update({ _id: req.params.id }, { comment: req.body.comment })
     .then((result) => {
       res.json(result);
     })
@@ -48,9 +43,7 @@ router.patch('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
-  Comments.remove({
-    _id: req.params.id,
-  })
+  Comment.remove({ _id: req.params.id })
     .then((result) => {
       res.json(result);
     })

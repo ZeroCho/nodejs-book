@@ -1,10 +1,10 @@
 var express = require('express');
-var Users = require('../schemas/users');
+var User = require('../schemas/user');
 
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  Users.find({})
+  User.find({})
     .then((users) => {
       res.render('mongoose', { users });
     })

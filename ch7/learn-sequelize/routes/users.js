@@ -3,7 +3,8 @@ var User = require('../models').User;
 
 var router = express.Router();
 
-router.get('/', function (req, res, next) {
+/* GET users listing. */
+router.get('/', function(req, res, next) {
   User.findAll()
     .then((users) => {
       res.json(users);
@@ -12,9 +13,10 @@ router.get('/', function (req, res, next) {
       console.error(err);
       next(err);
     });
+
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
   User.create({
     name: req.body.name,
     age: req.body.age,
@@ -29,5 +31,6 @@ router.post('/', function (req, res, next) {
       next(err);
     });
 });
+
 
 module.exports = router;
