@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
 const { Types: { ObjectId } } = Schema;
-
 const commentSchema = new Schema({
   commenter: {
     type: ObjectId,
@@ -18,4 +18,4 @@ const commentSchema = new Schema({
   },
 });
 
-module.exports = model('Comment', commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);
