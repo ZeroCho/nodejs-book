@@ -1,0 +1,24 @@
+if user && user.id
+    .user-name= '안녕하세요! ' + user.nick + '님'
+    .half
+        div 팔로잉
+        .count.following-count= user.Followings.length
+    .half
+        div 팔로워
+        .count.follower-count= user.Followers.length
+    input#my-id(type='hidden' value=user.id)
+    a(href='/profile'): button#my-profile 내 프로필
+    a(href='/auth/logout'): button#logout 로그아웃
+else
+    form#login-form(action='/auth/login' method='post')
+        .input-group
+            label(for='email') 이메일
+            input#email(type='email' name='email' required autofocus)
+        .input-group
+            label(for='password') 비밀번호
+            input#password(type='password' name='password' required autofocus)
+        if loginError
+            .error-message= loginError
+        a(href='/join'): button#join(type='button') 회원가입
+        button#login(type='submit') 로그인
+        a(href='/auth/kakao'): button#kakao(type='button') 카카오톡
