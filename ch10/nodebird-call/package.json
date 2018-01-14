@@ -1,5 +1,5 @@
 {
-  "name": "nodebird-api",
+  "name": "nodebird-call",
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
@@ -10,19 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.3",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
+    "axios": "^0.17.1",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
     "morgan": "^1.9.0",
-    "mysql2": "^1.5.1",
-    "passport": "^0.4.0",
-    "passport-kakao": "0.0.5",
-    "passport-local": "^1.0.0",
-    "pug": "^2.0.0-rc.4",
-    "sequelize": "^4.31.2",
-    "uuid": "^3.1.0"
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
     "nodemon": "^1.14.11"

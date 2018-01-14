@@ -1,14 +1,31 @@
 if user && user.id
-    .user-name= '안녕하세요! ' + user.nick + '님'
-    .half
-        div 팔로잉
-        .count.following-count= user.Followings.length
-    .half
-        div 팔로워
-        .count.follower-count= user.Followers.length
-    input#my-id(type='hidden' value=user.id)
-    a(href='/profile'): button#my-profile 내 프로필
-    a(href='/auth/logout'): button#logout 로그아웃
+    span.user-name= '안녕하세요! ' + user.nick + '님'
+    a(href='/auth/logout'): button 로그아웃
+    fieldset
+        legend API 키
+    fieldset
+        legend 도메인 등록
+        form(action='/domain' method='post')
+            div
+                label(for='type-free') 무료
+                input#type-free(type='radio' name='type' value='free')
+                label(for='type-premium') 프리미엄
+                input#type-premium(type='radio' name='type' value='premium')
+            div
+                label(for='host') 도메인
+                input#host(name='host' placeholder="ex) gilbut.co.kr")
+            button 저장
+    table
+        tr
+            th 도메인
+            th 타입
+            th 클라이언트아이디
+        for domain in user.domains
+            tr
+                td= domain.host
+                td= domain.type
+                td= domain.clientId
+
 else
     form#login-form(action='/auth/login' method='post')
         .input-group

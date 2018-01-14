@@ -6,9 +6,11 @@ const morgan = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-const sequelize = require('./models');
+const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 const auth = require('./routes/auth');
+const v1 = require('./routes/v1');
+const index = require('./routes/index');
 
 const app = express();
 sequelize.sync();
@@ -36,7 +38,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/v1', v1);
 app.use('/auth', auth);
+app.use('/', index);
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');
