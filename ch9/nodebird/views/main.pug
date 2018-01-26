@@ -25,7 +25,7 @@ block content
                     .twit-author= twit.user.nick
                     -var isFollowing = user && user.Followings.map(function(f) { return f.id }).indexOf(twit.user.id) > -1;
                     if user && user.id !== twit.user.id && !isFollowing
-                        .twit-follow 팔로우하기
+                        button.twit-follow 팔로우하기
                     .twit-content= twit.content
                     if twit.img
                         .twit-img

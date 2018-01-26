@@ -2,8 +2,6 @@ if user && user.id
     span.user-name= '안녕하세요! ' + user.nick + '님'
     a(href='/auth/logout'): button 로그아웃
     fieldset
-        legend API 키
-    fieldset
         legend 도메인 등록
         form(action='/domain' method='post')
             div
@@ -13,18 +11,18 @@ if user && user.id
                 input#type-premium(type='radio' name='type' value='premium')
             div
                 label(for='host') 도메인
-                input#host(name='host' placeholder="ex) gilbut.co.kr")
+                input#host(name='host' placeholder="ex) zerocho.com")
             button 저장
     table
         tr
-            th 도메인
+            th 도메인 주소
             th 타입
-            th 클라이언트아이디
+            th 클라이언트 비밀키
         for domain in user.domains
             tr
                 td= domain.host
                 td= domain.type
-                td= domain.clientId
+                td= domain.clientSecret
 
 else
     form#login-form(action='/auth/login' method='post')

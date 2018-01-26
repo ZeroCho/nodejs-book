@@ -4,11 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app"
   },
   "author": "ZeroCho",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "connect-flash": "^0.1.1",
@@ -22,9 +21,9 @@
     "passport-kakao": "0.0.5",
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.4",
-    "sequelize": "^4.28.0"
+    "sequelize": "^4.32.1"
   },
   "devDependencies": {
-    "nodemon": "^1.14.3"
+    "nodemon": "^1.14.11"
   }
 }

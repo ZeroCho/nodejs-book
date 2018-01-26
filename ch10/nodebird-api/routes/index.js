@@ -22,7 +22,7 @@ router.post('/domain', (req, res, next) => {
     userId: req.user.id,
     host: req.body.host,
     type: req.body.type,
-    clientId: uuidv4(),
+    clientSecret: uuidv4(),
   })
     .then(() => {
       res.redirect('/');
