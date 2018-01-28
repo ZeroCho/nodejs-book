@@ -11,6 +11,7 @@ const passportConfig = require('./passport');
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const v1 = require('./routes/v1');
+const v2 = require('./routes/v2');
 
 const app = express();
 sequelize.sync();
@@ -39,6 +40,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/v1', v1);
+app.use('/v2', v2);
 app.use('/auth', auth);
 app.use('/', index);
 
