@@ -1,0 +1,13 @@
+doctype
+html
+    head
+        meta(charset='utf-8')
+        title GIF 채팅방 생성
+    body
+        fieldset
+            legend 채팅방 생성
+            form(action='/create' method='post')
+                input(name='title' placeholder='방 제목')
+                input(name='max' type='number' placeholder='수용 인원(최소 2명)' min='2' value='10')
+                input(name='password' type='password' placeholder='비밀번호(없으면 공개방)')
+                button(type='submit') 생성

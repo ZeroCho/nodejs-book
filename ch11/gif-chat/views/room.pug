@@ -1,0 +1,15 @@
+doctype
+html
+    head
+        meta(charset='utf-8')
+        title= title + ' - GIF 채팅방'
+    body
+        fieldset
+            legend 참여자 목록
+        fieldset
+            legend 채팅 내용
+        form(action='/chat' method='post' enctype='multipart/form-data')
+            input(type='hidden' value=user)
+            input(type='file' name='gif' placeholder='이미지 업로드')
+            input(name='chat')
+            button(type='submit') 전송

@@ -1,5 +1,3 @@
-const http = require('http');
-const WebSocket = require('ws');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
@@ -41,7 +39,11 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
-const server = http.createServer(app);
+const server = app.listen(app.get('port'), () => {
+  console.log(app.get('port'), '번 포트에서 대기중');
+});
+const WebSocket = require('ws');
+
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws, req) => {
@@ -63,8 +65,4 @@ wss.on('connection', (ws, req) => {
     }
   }, 3000);
   ws.interval = interval;
-});
-
-server.listen(app.get('port'), () => {
-  console.log(app.get('port'), '번 포트에서 대기중');
 });

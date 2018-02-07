@@ -5,13 +5,13 @@ html
         title GIF 채팅방
     body
         div F12를 눌러 console 탭과 network 탭을 확인하세요.
+        script(src='/socket.io/socket.io.js')
         script.
-          var webSocket = new WebSocket("ws://localhost:8005");
-          webSocket.onopen = function () {
-            setInterval(function () {
-              webSocket.send('클라이언트에서 서버로 메시지를 보냅니다');
-            }, 3000);
-          }
-          webSocket.onmessage = function (event) {
-            console.log(event.data);
-          }
+          var socket = io.connect('http://localhost:8005', {
+            path: '/socket.io',
+            transports: ['websocket']
+          });
+          socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('reply', 'Hello Node.JS');
+          });

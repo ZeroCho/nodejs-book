@@ -14,6 +14,9 @@ const request = async (req, api) => {
     return await axios.get(`${URL}${api}`, { headers: { authorization: req.session.jwt } }); // API 요청
   } catch (error) {
     console.error(error);
+    if (error.response.status < 500) { // 419나 410처럼 의도된 에러면 발생
+      return error.response;
+    }
     throw error;
   }
 };
