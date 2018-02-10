@@ -12,6 +12,10 @@ const roomSchema = new Schema({
     defaultValue: 10,
     min: 2,
   },
+  owner: {
+    type: String,
+    required: true,
+  },
   password: String,
   createdAt: {
     type: Date,

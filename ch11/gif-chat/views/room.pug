@@ -1,15 +1,10 @@
-doctype
-html
-    head
-        meta(charset='utf-8')
-        title= title + ' - GIF 채팅방'
-    body
-        fieldset
-            legend 참여자 목록
-        fieldset
-            legend 채팅 내용
-        form(action='/chat' method='post' enctype='multipart/form-data')
-            input(type='hidden' value=user)
-            input(type='file' name='gif' placeholder='이미지 업로드')
-            input(name='chat')
-            button(type='submit') 전송
+extends layout
+
+block content
+    fieldset
+        legend 채팅방 생성
+        form(action='/room' method='post')
+            div: input(name='title' placeholder='방 제목')
+            div: input(name='max' type='number' placeholder='수용 인원(최소 2명)' min='2' value='10')
+            div: input(name='password' type='password' placeholder='비밀번호(없으면 공개방)')
+            div: button(type='submit') 생성

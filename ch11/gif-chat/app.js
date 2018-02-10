@@ -3,28 +3,47 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const flash = require('connect-flash');
+const axios = require('axios');
+const ColorHash = require('color-hash');
 
 const index = require('./routes/index');
 const connect = require('./schemas');
 
 const app = express();
 connect();
+const COOKIE_SECRET = process.env.COOKIE_SECRET || 'gifchat';
+const sessionMiddleware = session({
+  resave: false,
+  saveUninitialized: false,
+  secret: COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('port', 8005 || process.env.PORT);
 
 app.use(morgan('dev'));
-app.use(cookieParser('gifchat'));
-app.use(session({
-  resave: false,
-  saveUninitialized: false,
-  secret: 'gifchat',
-  cookie: {
-    httpOnly: true,
-    secure: false,
-  },
-}));
+app.use(cookieParser(COOKIE_SECRET));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(sessionMiddleware);
+app.use(flash());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/gif', express.static(path.join(__dirname, 'uploads')));
+
+app.use((req, res, next) => {
+  if (!req.session.color) {
+    const colorHash = new ColorHash();
+    req.session.color = colorHash.hex(req.sessionID);
+  }
+  next();
+});
+
 
 app.use('/', index);
 
@@ -46,21 +65,49 @@ const server = app.listen(app.get('port'), () => {
 });
 const io = require('socket.io')(server, { path: '/socket.io' });
 
-io.on('connection', (socket) => {
-  const req = socket.request;
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  console.log('새로운 클라이언트 접속!', ip);
+app.set('io', io);
+const room = io.of('/room');
+const chat = io.of('/chat');
+
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+room.on('connection', (socket) => {
+  console.log('room 네임스페이스에 접속');
   socket.on('disconnect', () => {
-    console.log('클라이언트 접속 해제', ip);
-    clearInterval(socket.interval);
+    console.log('room 네임스페이스 접속 해제');
   });
-  socket.on('error', (error) => {
-    console.error(error);
+});
+
+chat.on('connection', (socket) => {
+  console.log('chat 네임스페이스에 접속');
+  const req = socket.request;
+  const { headers: { referer } } = req;
+  const roomId = referer.split('/')[referer.split('/').length - 1].replace(/\?.+/, '');
+  socket.join(roomId);
+  socket.to(roomId).emit('join', {
+    user: 'system',
+    chat: `${req.session.color}님이 입장하셨습니다.`,
   });
-  socket.on('reply', (data) => {
-    console.log(data);
+  socket.on('disconnect', () => {
+    console.log('chat 네임스페이스 접속 해제');
+    socket.leave(roomId);
+    const currentRoom = socket.adapter.rooms[roomId];
+    const userCount = currentRoom ? currentRoom.length : 0;
+    if (userCount === 0) {
+      axios.delete(`http://localhost:8005/room/${roomId}`)
+        .then(() => {
+          console.log('방 제거 요청 성공');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      socket.to(roomId).emit('exit', {
+        user: 'system',
+        chat: `${req.session.color}님이 퇴장하셨습니다.`,
+      });
+    }
   });
-  socket.interval = setInterval(() => {
-    socket.emit('news', 'Hello Socket.IO');
-  }, 3000);
 });
