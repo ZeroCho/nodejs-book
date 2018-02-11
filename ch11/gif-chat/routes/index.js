@@ -52,7 +52,8 @@ router.get('/room/:id', async (req, res, next) => {
       req.flash('roomError', '비밀번호가 틀렸습니다.');
       return res.redirect('/');
     }
-    if (room.max <= io.of('/chat').adapter.rooms.length) {
+    const { rooms } = io.of('/chat').adapter;
+    if (rooms && rooms[req.params.id] && room.max <= rooms[req.params.id].length) {
       req.flash('roomError', '허용 인원이 초과하였습니다.');
       return res.redirect('/');
     }
@@ -71,7 +72,7 @@ router.delete('/room/:id', async (req, res, next) => {
     res.send('ok');
     setTimeout(() => {
       req.app.get('io').of('/room').emit('removeRoom', req.params.id);
-    }, 3000);
+    }, 2000);
   } catch (error) {
     console.error(error);
     next(error);

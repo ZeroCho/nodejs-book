@@ -44,7 +44,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use('/', index);
 
 app.use((req, res, next) => {
@@ -109,5 +108,8 @@ chat.on('connection', (socket) => {
         chat: `${req.session.color}님이 퇴장하셨습니다.`,
       });
     }
+  });
+  socket.on('chat', (data) => {
+    socket.to(data.room).emit(data);
   });
 });

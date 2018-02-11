@@ -27,6 +27,7 @@
     border: 1px solid silver;
     border-radius: 5px;
     padding: 2px 5px;
+    max-width: 300px;
 }
 
 #exit-btn {
@@ -60,6 +61,8 @@ label[for='gif'] {
     display: none;
 }
 
-table {
+table, table th, table td {
     text-align: center;
+    border: 1px solid silver;
+    border-collapse: collapse;
 }

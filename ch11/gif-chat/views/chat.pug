@@ -53,7 +53,7 @@ block content
         name.textContent = data.user;
         div.appendChild(name);
         if (data.chat) {
-          var chat = document.createElement('chat');
+          var chat = document.createElement('div');
           chat.textContent = data.chat;
           div.appendChild(chat);
         } else {
@@ -98,6 +98,11 @@ block content
               console.error(xhr.responseText);
             }
           };
+          // socket.emit('chat', {
+          //   room: '#{room._id}',
+          //   user: '#{user}',
+          //   chat: e.target.chat.value
+          // });
           xhr.open('POST', '/room/#{room._id}/chat');
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify({ chat: this.chat.value }));
