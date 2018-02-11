@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 app.set('port', 8002 || process.env.PORT);
 
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('nodebirdsecret'));
@@ -37,7 +38,6 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/v1', v1);
 app.use('/v2', v2);

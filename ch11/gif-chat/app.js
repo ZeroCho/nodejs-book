@@ -28,13 +28,13 @@ app.set('view engine', 'pug');
 app.set('port', 8005 || process.env.PORT);
 
 app.use(morgan('dev'));
-app.use(cookieParser(COOKIE_SECRET));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(sessionMiddleware);
-app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/gif', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(COOKIE_SECRET));
+app.use(sessionMiddleware);
+app.use(flash());
 
 app.use((req, res, next) => {
   if (!req.session.color) {

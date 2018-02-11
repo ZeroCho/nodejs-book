@@ -22,6 +22,8 @@ app.set('view engine', 'pug');
 app.set('port', 8001 || process.env.PORT);
 
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('nodebirdsecret'));
@@ -37,8 +39,6 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/img', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', page);
 app.use('/auth', auth);
