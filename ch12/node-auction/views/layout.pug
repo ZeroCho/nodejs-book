@@ -12,8 +12,10 @@ html
                 .profile
                     if user && user.id
                         .user-name= '안녕하세요! ' + user.nick + '님'
+                        .user-money= '보유 자산: ' + user.money + '원'
                         input#my-id(type='hidden' value=user.id)
                         a#logout.btn(href='/auth/logout') 로그아웃
+                        a#register.btn(href='/good') 상품 등록
                     else
                         form#login-form(action='/auth/login' method='post')
                             .input-group
@@ -29,4 +31,5 @@ html
                 footer
                     | Made by&nbsp;
                     a(href='https://www.zerocho.com' target='_blank') ZeroCho
+                block good
             block content

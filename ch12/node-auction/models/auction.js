@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => (
   sequelize.define('auction', {
-    price: {
+    bid: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,

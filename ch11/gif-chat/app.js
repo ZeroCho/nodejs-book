@@ -109,7 +109,7 @@ chat.on('connection', (socket) => {
       });
     }
   });
-  socket.on('chat', (data) => {
-    socket.to(data.room).emit(data);
-  });
+  // socket.on('chat', (data) => {
+  //   socket.to(data.room).emit(data);
+  // });
 });

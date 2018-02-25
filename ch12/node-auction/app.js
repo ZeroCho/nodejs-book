@@ -33,7 +33,6 @@ app.set('port', 8010 || process.env.PORT);
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(COOKIE_SECRET));
@@ -58,6 +57,28 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
-app.listen(app.get('port'), () => {
+const server = app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');
+});
+const SSE = require('sse');
+
+const sse = new SSE(server);
+sse.on('connection', (client) => {
+  setInterval(() => {
+    client.send(new Date().valueOf().toString());
+  }, 1000);
+});
+
+const io = require('socket.io')(server, { path: '/socket.io' });
+
+app.set('io', io);
+
+io.on('connection', (socket) => {
+  const req = socket.request;
+  const { headers: { referer } } = req;
+  const roomId = referer.split('/')[referer.split('/').length - 1];
+  socket.join(roomId);
+  socket.on('disconnect', () => {
+    socket.leave(roomId);
+  });
 });

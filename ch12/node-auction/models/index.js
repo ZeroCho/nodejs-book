@@ -12,8 +12,8 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Good = require('./good')(sequelize, Sequelize);
 db.Auction = require('./auction')(sequelize, Sequelize);
 
-db.User.hasMany(db.Good);
-db.Good.belongsTo(db.User);
+db.Good.belongsTo(db.User, { as: 'owner' });
+db.Good.belongsTo(db.User, { as: 'sold' });
 db.User.hasMany(db.Auction);
 db.Good.hasMany(db.Auction);
 db.Auction.belongsTo(db.User);
