@@ -10,10 +10,12 @@ const index = require('./routes/index');
 const auth = require('./routes/auth');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
+const checkAuction = require('./checkAuction');
 
 const app = express();
 sequelize.sync();
 passportConfig(passport);
+checkAuction();
 
 const COOKIE_SECRET = process.env.COOKIE_SECRET || 'auction';
 const sessionMiddleware = session({

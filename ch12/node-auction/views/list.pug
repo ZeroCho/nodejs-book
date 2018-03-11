@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    .timeline
+        h2 경매 낙찰 목록
+        table#good-list
+            tr
+                th 상품명
+                th 사진
+                th 낙찰가
+            for good in goods
+                tr
+                    td= good.name
+                    td: img(src='/img/' + good.img)
+                    td= good.auctions[0].bid
