@@ -22,7 +22,6 @@ typings/
 .node_repl_history
 *.tgz
 .yarn-integrity
-.env
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries

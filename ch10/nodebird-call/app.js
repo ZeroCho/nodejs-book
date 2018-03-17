@@ -10,7 +10,7 @@ const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.set('port', 8003 || process.env.PORT);
+app.set('port', process.env.PORT || 8003);
 
 app.use(morgan('dev'));
 app.use(cookieParser('nodebirdcall'));

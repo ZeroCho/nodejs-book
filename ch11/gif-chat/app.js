@@ -25,7 +25,7 @@ const sessionMiddleware = session({
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.set('port', 8005 || process.env.PORT);
+app.set('port', process.env.PORT || 8005);
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
