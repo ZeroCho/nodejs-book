@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const RateLimit = require('express-rate-limit');
-
-const JWT_SECRET = process.env.JWT_SECRET || 'jwtSecret';
+require('dotenv').config();
 
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -21,7 +20,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 
 exports.verifyToken = (req, res, next) => {
   try {
-    req.decoded = jwt.verify(req.headers.authorization, JWT_SECRET);
+    req.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
     return next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') { // 유효기간 초과

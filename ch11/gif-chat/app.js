@@ -6,17 +6,18 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const axios = require('axios');
 const ColorHash = require('color-hash');
+require('dotenv').config();
 
 const index = require('./routes/index');
 const connect = require('./schemas');
 
 const app = express();
 connect();
-const COOKIE_SECRET = process.env.COOKIE_SECRET || 'gifchat';
+
 const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
-  secret: COOKIE_SECRET,
+  secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
     secure: false,
@@ -32,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/gif', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(COOKIE_SECRET));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
 app.use(flash());
 

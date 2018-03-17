@@ -1,10 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 const { verifyToken, apiLimiter } = require('./middlewares');
 const { Domain, User, Post, Hashtag } = require('../models');
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'jwtSecret';
 
 router.post('/token', apiLimiter, async (req, res) => {
   const { clientSecret } = req.body;
@@ -25,7 +26,7 @@ router.post('/token', apiLimiter, async (req, res) => {
     const token = jwt.sign({
       id: domain.user.id,
       nick: domain.user.nick,
-    }, JWT_SECRET, {
+    }, process.env.JWT_SECRET, {
       expiresIn: '30m', // 30분
       issuer: 'nodebird',
     });

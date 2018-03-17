@@ -3,6 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+require('dotenv').config();
 
 const index = require('./routes/index');
 
@@ -13,11 +14,11 @@ app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 8005);
 
 app.use(morgan('dev'));
-app.use(cookieParser('gifchat'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'gifchat',
+  secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
     secure: false,
