@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    #map
+    script.
+      function initMap() {
+        var center = { lat: #{results[0].geometry.location.lat || -25.363}, lng: #{results[0].geometry.location.lng || 131.044} };
+        var positions = #{[] || '[]'};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: center
+        });
+        positions.forEach(function(pos) {
+          new google.maps.Marker({
+            position: { lat: pos.lat, lng: pos.lng },
+            map: map
+          });
+        });
+      }
+    script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaF4Pzmqg5oVAaC4iMIrZVeyq42bAKHhU&callback=initMap")
+    if results
+        for result in results
+            div= result.formatted_address
+            div= JSON.stringify(result.geometry.location)
+            div= result.place_id
+            div= result.name

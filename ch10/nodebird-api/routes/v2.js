@@ -1,11 +1,22 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const url = require('url');
 require('dotenv').config();
 
 const { verifyToken, apiLimiter } = require('./middlewares');
 const { Domain, User, Post, Hashtag } = require('../models');
 
 const router = express.Router();
+
+router.use(async (req, res, next) => {
+  const domain = await Domain.find({ where: { host: url.parse(req.get('origin')).host } });
+  if (domain) {
+    cors({ origin: req.get('origin') })(req, res, next);
+  } else {
+    next();
+  }
+});
 
 router.post('/token', apiLimiter, async (req, res) => {
   const { clientSecret } = req.body;
