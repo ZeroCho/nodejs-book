@@ -6,7 +6,7 @@ module.exports = () => {
       mongoose.set('debug', true);
     }
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost:27017/gifchat', (error) => {
+    mongoose.connect('mongodb://localhost:27017/nodeplace', (error) => {
       if (error) {
         console.log('몽고디비 연결 에러', error);
       } else {
