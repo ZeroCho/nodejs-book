@@ -15,6 +15,7 @@ const post = require('./routes/post');
 const user = require('./routes/user');
 const passportConfig = require('./passport');
 const { sequelize } = require('./models');
+const logger = require('./logger');
 
 const app = express();
 sequelize.sync();
@@ -62,6 +63,8 @@ app.use('/user', user);
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
+  logger.info('hello');
+  logger.error(err.message);
   next(err);
 });
 
