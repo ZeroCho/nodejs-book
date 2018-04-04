@@ -31,6 +31,7 @@ input, select {
     width: 320px;
     margin: 0;
     z-index: 100;
+    padding-left: 150px;
 }
 
 #search-list li {
