@@ -40,8 +40,9 @@ block content
           xhr.onload = function () {
             if (xhr.status === 200) {
               var url = JSON.parse(xhr.responseText).url;
+              var originalUrl = JSON.parse(xhr.responseText).originalUrl;
               document.getElementById('img-url').value = url;
-              document.getElementById('img-preview').src = url;
+              document.getElementById('img-preview').src = originalUrl;
               document.getElementById('img-preview').style.display = 'inline';
             } else {
               console.error(xhr.responseText);
