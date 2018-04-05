@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
+const multerGoogleStorage = require('multer-google-storage');
 const fs = require('fs');
 
 const { Post, Hashtag, User } = require('../models');
@@ -15,20 +15,16 @@ fs.readdir('uploads', (error) => {
   }
 });
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, 'uploads/');
-    },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + new Date().valueOf() + ext);
-    },
+  storage: multerGoogleStorage.storageEngine({
+    bucket: 'node-deploy',
+    projectId: 'node-deploy-199015',
+    keyFilename: 'node-deploy-c1ce429ea8d6.json',
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
   console.log(req.file);
-  res.json({ url: `/img/${req.file.filename}` });
+  res.json({ url: req.file.path });
 });
 
 const upload2 = multer();
