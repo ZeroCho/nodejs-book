@@ -29,7 +29,7 @@ block content
                     .twit-content= twit.content
                     if twit.img
                         .twit-img
-                            img(src='/img/' + twit.img alt='썸네일')
+                            img(src=twit.img alt='썸네일')
     script.
       if (document.getElementById('img')) {
         document.getElementById('img').addEventListener('change', function (e) {
@@ -41,7 +41,7 @@ block content
             if (xhr.status === 200) {
               var url = JSON.parse(xhr.responseText).url;
               document.getElementById('img-url').value = url;
-              document.getElementById('img-preview').src = '/img/' + url;
+              document.getElementById('img-preview').src = url;
               document.getElementById('img-preview').style.display = 'inline';
             } else {
               console.error(xhr.responseText);
