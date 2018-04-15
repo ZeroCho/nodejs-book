@@ -1,4 +1,4 @@
-const fs = require('ch3/fs');
+const fs = require('fs');
 
 fs.readFile('./readme.txt', (err, data) => {
   if (err) {

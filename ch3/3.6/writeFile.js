@@ -1,4 +1,4 @@
-const fs = require('ch3/fs');
+const fs = require('fs');
 
 fs.writeFile('./writeme.txt', '글이 입력됩니다', (err) => {
   if (err) {

@@ -7,6 +7,7 @@
     "no-buffer-constructor": 0,
     "switch-colon-spacing": 0,
     "semi-style": 0,
+    "max-len": ["error", { "code": 90 }],
     "linebreak-style": ["error", "windows"],
     "object-curly-newline": ["error", { "multiline": true }]
   }

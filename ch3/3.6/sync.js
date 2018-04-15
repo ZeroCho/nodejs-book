@@ -1,4 +1,4 @@
-const fs = require('ch3/fs');
+const fs = require('fs');
 
 console.log('시작');
 let data = fs.readFileSync('./readme2.txt');

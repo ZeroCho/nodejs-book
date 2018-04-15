@@ -4,10 +4,9 @@ const fs = require('fs');
 const users = {};
 
 http.createServer((req, res) => {
-  console.log(req.method, req.url);
   if (req.method === 'GET') {
     if (req.url === '/') {
-      return fs.readFile('./restServer.html', (err, data) => {
+      return fs.readFile('./restFront.html', (err, data) => {
         if (err) {
           throw err;
         }
@@ -20,16 +19,16 @@ http.createServer((req, res) => {
         }
         res.end(data);
       });
-    } else if (req.url === '/restServer.css') {
-      return fs.readFile('./restServer.css', (err, data) => {
-        if (err) {
-          throw err;
-        }
-        res.end(data);
-      });
     } else if (req.url === '/users') {
       return res.end(JSON.stringify(users));
     }
+    return fs.readFile(`.${req.url}`, (err, data) => {
+      if (err) {
+        res.writeHead(404, 'NOT FOUND');
+        return res.end('NOT FOUND');
+      }
+      return res.end(data);
+    });
   } else if (req.method === 'POST') {
     if (req.url === '/users') {
       let body = '';
@@ -65,6 +64,8 @@ http.createServer((req, res) => {
       return res.end(JSON.stringify(users));
     }
   }
+  res.writeHead(404, 'NOT FOUND');
+  return res.end('NOT FOUND');
 })
   .listen(8085, () => {
     console.log('8085번 포트에서 서버 대기중입니다');
