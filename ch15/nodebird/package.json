@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "connect-flash": "^0.1.1",
+    "connect-redis": "^3.3.3",
     "cookie-parser": "^1.4.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
