@@ -1,7 +1,10 @@
 const express = require('express');
 const multer = require('multer');
-const multerGoogleStorage = require('multer-google-storage');
-const axios = require('axios');
+const path = require('path');
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+// const multerGoogleStorage = require('multer-google-storage');
+// const axios = require('axios');
 const fs = require('fs');
 
 const { Post, Hashtag, User } = require('../models');
@@ -15,26 +18,45 @@ fs.readdir('uploads', (error) => {
     fs.mkdirSync('uploads');
   }
 });
+
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2',
+});
 const upload = multer({
-  storage: multerGoogleStorage.storageEngine({
-    bucket: 'node-deploy',
-    projectId: 'node-deploy-199015',
-    keyFilename: 'node-deploy-c1ce429ea8d6.json',
+  storage: multerS3({
+    s3: new AWS.S3(),
+    bucket: 'nodebird',
+    key(req, file, cb) {
+      cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
+    },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
+// const upload = multer({
+//   storage: multerGoogleStorage.storageEngine({
+//     bucket: 'node-deploy',
+//     projectId: 'node-deploy-199015',
+//     keyFilename: 'node-deploy-c1ce429ea8d6.json',
+//   }),
+//   limits: { fileSize: 5 * 1024 * 1024 },
+// });
 router.post('/img', isLoggedIn, upload.single('img'), (req, res, next) => {
   console.log(req.file);
-  axios.get(`https://us-central1-node-deploy-199015.cloudfunctions.net/gcp-upload?filename=${req.file.filename}`)
-    .then((response) => {
-      const originalUrl = `${req.file.path.split('/').splice(0, 3).join('/')}/${req.file.filename}`;
-      const url = `${req.file.path.split('/').splice(0, 3).join('/')}/${response.data}`;
-      res.json({ url, originalUrl });
-    })
-    .catch((error) => {
-      console.error(error);
-      next(error);
-    });
+  const originalUrl = req.file.location;
+  const url = originalUrl.replace(/\/original\//, '/thumb/');
+  res.json({ url, originalUrl });
+  // axios.get(`https://us-central1-node-deploy-199015.cloudfunctions.net/gcp-upload?filename=${req.file.filename}`)
+  //   .then((response) => {
+  //     const originalUrl = `${req.file.path.split('/').splice(0, 3).join('/')}/${req.file.filename}`;
+  //     const url = `${req.file.path.split('/').splice(0, 3).join('/')}/${response.data}`;
+  //     res.json({ url, originalUrl });
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     next(error);
+  //   });
 });
 
 const upload2 = multer();

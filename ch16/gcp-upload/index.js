@@ -41,6 +41,4 @@ exports.resizeAndUpload = (req, res) => {
         res.sendStatus(err.code).send(err);
       });
     });
-
-  console.log(`Served: ${filename}`);
 };

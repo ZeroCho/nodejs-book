@@ -13,7 +13,7 @@ router.get('/flash', function(req, res) {
 });
 
 router.get('/flash/result', function(req, res) {
-  res.send(req.session.message + ' ' + req.flash('message'));
+  res.send(`${req.session.message} ${req.flash('message')}`);
 });
 
 module.exports = router;
