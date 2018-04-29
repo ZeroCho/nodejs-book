@@ -22,7 +22,9 @@ router.post('/', function (req, res, next) {
   });
   comment.save()
     .then((result) => {
-      console.log(result);
+      return Comment.populate(result, { path: 'commenter' });
+    })
+    .then((result) => {
       res.status(201).json(result);
     })
     .catch((err) => {

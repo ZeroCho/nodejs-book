@@ -3,7 +3,6 @@ var User = require('../models').User;
 
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   User.findAll()
     .then((users) => {
@@ -13,7 +12,6 @@ router.get('/', function(req, res, next) {
       console.error(err);
       next(err);
     });
-
 });
 
 router.post('/', function(req, res, next) {
@@ -31,6 +29,5 @@ router.post('/', function(req, res, next) {
       next(err);
     });
 });
-
 
 module.exports = router;

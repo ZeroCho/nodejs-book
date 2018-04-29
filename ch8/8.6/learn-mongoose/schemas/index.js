@@ -5,8 +5,9 @@ module.exports = () => {
     if (process.env.NODE_ENV !== 'production') {
       mongoose.set('debug', true);
     }
-    mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost:27017/nodejs', (error) => {
+    mongoose.connect('mongodb://root:nodejsbook@localhost:27017/admin', {
+      dbName: 'nodejs',
+    }, (error) => {
       if (error) {
         console.log('몽고디비 연결 에러', error);
       } else {
@@ -15,7 +16,6 @@ module.exports = () => {
     });
   };
   connect();
-
   mongoose.connection.on('error', (error) => {
     console.error('몽고디비 연결 에러', error);
   });
