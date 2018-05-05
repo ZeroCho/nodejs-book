@@ -3,22 +3,20 @@ const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
 
-function parseCookies(req) {
-  const list = {};
-  const cookieString = req.headers.cookie;
-  if (cookieString) {
-    cookieString.split(';').forEach((cookie) => {
-      const parts = cookie.split('=');
-      list[parts.shift().trim()] = decodeURI(parts.join('='));
-    });
-  }
-  return list;
-}
+const parseCookies = (cookie = '') =>
+  cookie
+    .split(';')
+    .map(v => v.split('='))
+    .map(([k, ...vs]) => [k, vs.join('=')])
+    .reduce((acc, [k, v]) => {
+      acc[k.trim()] = decodeURIComponent(v);
+      return acc;
+    }, {});
 
 const session = {};
 
 http.createServer((req, res) => {
-  const cookies = parseCookies(req);
+  const cookies = parseCookies(req.headers.cookie);
   if (req.url.startsWith('/login')) {
     const { query } = url.parse(req.url);
     const { name } = qs.parse(query);
