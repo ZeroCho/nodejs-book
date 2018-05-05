@@ -1,7 +1,6 @@
 const express = require('express');
 const util = require('util');
 const googleMaps = require('@google/maps');
-require('dotenv').config();
 
 const History = require('../schemas/history');
 const Favorite = require('../schemas/favorite');

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const RateLimit = require('express-rate-limit');
-require('dotenv').config();
 
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {

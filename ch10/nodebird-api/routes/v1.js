@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 const { verifyToken, deprecated } = require('./middlewares');
 const { Domain, User, Post, Hashtag } = require('../models');

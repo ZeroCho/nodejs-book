@@ -1,5 +1,4 @@
 const KakaoStrategy = require('passport-kakao').Strategy;
-require('dotenv').config();
 
 const { User } = require('../models');
 

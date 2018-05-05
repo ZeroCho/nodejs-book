@@ -1,6 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-require('dotenv').config();
 
 const router = express.Router();
 const URL = 'http://localhost:8002/v2';
