@@ -7,11 +7,20 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/join', (req, res) => {
-  res.render('join', { title: '회원가입 - NodeBird', user: null, joinError: req.flash('joinError') });
+  res.render('join', {
+    title: '회원가입 - NodeBird',
+    user: null,
+    joinError: req.flash('joinError'),
+  });
 });
 
 router.get('/', (req, res, next) => {
-  res.render('main', { title: 'NodeBird', twits: [], user: null, loginError: req.flash('loginError') });
+  res.render('main', {
+    title: 'NodeBird',
+    twits: [],
+    user: null,
+    loginError: req.flash('loginError'),
+  });
 });
 
 module.exports = router;

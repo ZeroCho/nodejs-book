@@ -8,6 +8,8 @@
     "switch-colon-spacing": 0,
     "semi-style": 0,
     "max-len": ["error", { "code": 90 }],
-    "object-curly-newline": ["error", { "multiline": true }]
+    "linebreak-style": ["error", "windows"],
+    "object-curly-newline": 0,
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
   }
 }
