@@ -1,0 +1,50 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    title NodeBird 로그인
+    style.
+      .input-group label {
+        width: 200px;
+        display: inline-block;
+      }
+  body
+    if user && user.id
+      span.user-name= '안녕하세요! ' + user.nick + '님'
+      a(href='/auth/logout'): button 로그아웃
+      fieldset
+        legend 도메인 등록
+        form(action='/domain' method='post')
+          div
+            label(for='type-free') 무료
+            input#type-free(type='radio' name='type' value='free')
+            label(for='type-premium') 프리미엄
+            input#type-premium(type='radio' name='type' value='premium')
+          div
+            label(for='host') 도메인
+            input#host(name='host' placeholder="ex) zerocho.com")
+          button 저장
+      table
+        tr
+          th 도메인 주소
+          th 타입
+          th 클라이언트 비밀키
+        for domain in user.domains
+          tr
+            td= domain.host
+            td= domain.type
+            td= domain.clientSecret
+
+    else
+      form#login-form(action='/auth/login' method='post')
+        h2 NodeBird 계정으로 로그인하세요.
+        .input-group
+          label(for='email') 이메일
+          input#email(type='email' name='email' required autofocus)
+        .input-group
+          label(for='password') 비밀번호
+          input#password(type='password' name='password' required)
+        if loginError
+          .error-message= loginError
+        a(href='/join'): button#join(type='button') 회원가입
+        button#login(type='submit') 로그인

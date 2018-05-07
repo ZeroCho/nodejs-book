@@ -10,6 +10,6 @@
     "max-len": ["error", { "code": 90 }],
     "linebreak-style": ["error", "windows"],
     "object-curly-newline": 0,
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "no-underscore-dangle": 0
   }
 }
