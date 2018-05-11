@@ -1,0 +1,84 @@
+extends layout
+
+block good
+  h2= good.name
+  div= '등록자: ' + good.owner.nick
+  div= '시작가: ' + good.price + '원'
+  strong#time(data-start=good.createdAt)
+  img#good-img(src='/img/' + good.img)
+
+block content
+  .timeline
+    #bid
+      for bid in auction
+        div
+          span= bid.user.nick + '님: '
+          strong= bid.bid + '원에 입찰하셨습니다.'
+          if bid.msg
+            span= '(' + bid.msg + ')'
+    form#bid-form
+      input(type='number' name='bid' placeholder='입찰가' required min=good.price)
+      input(type='msg' name='msg' placeholder='메시지(선택사항)' maxlength='100')
+      button.btn(type='submit') 입찰
+    if auctionError
+      .error-message= auctionError
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/event-source-polyfill/0.0.9/eventsource.min.js')
+  script(src='/socket.io/socket.io.js')
+  script.
+    document.querySelector('#bid-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var xhr = new XMLHttpRequest();
+      var errorMessage = document.querySelector('.error-message');
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          e.target.bid.value = '';
+          e.target.msg.value = '';
+          errorMessage.textContent = '';
+        } else {
+          console.error(xhr.responseText);
+          e.target.bid.value = '';
+          e.target.msg.value = '';
+          errorMessage.textContent = xhr.responseText
+        }
+      };
+      xhr.open('POST', '/good/#{good.id}/bid');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({
+        bid: e.target.bid.value,
+        msg: e.target.msg.value,
+      }));
+    });
+    var es = new EventSource("/sse");
+    var time = document.querySelector('#time');
+    es.onmessage = function (e) {
+      var end = new Date(time.dataset.start);
+      var server = new Date(parseInt(e.data, 10));
+      end.setDate(end.getDate() + 1);
+      if (server >= end) {
+        return time.textContent = '00:00:00';
+      } else {
+        var t = end - server;
+        var seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
+        var minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
+        var hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
+        return time.textContent = hours + ':' + minutes + ':' + seconds;
+      }
+    };
+    var socket = io.connect('http://localhost:8010', {
+      path: '/socket.io'
+    });
+    socket.on('bid', function (data) {
+      var div = document.createElement('div');
+      var span = document.createElement('span');
+      span.textContent = data.nick + '님: ';
+      var strong = document.createElement('strong');
+      strong.textContent = data.bid + '원에 입찰하셨습니다.';
+      div.appendChild(span);
+      div.appendChild(strong);
+      if (data.msg) {
+        span = document.createElement('span');
+        span.textContent = '(' + data.msg + ')';
+        div.appendChild(span);
+      }
+      document.querySelector('#bid').appendChild(div);
+    });

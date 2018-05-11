@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .timeline
+    h2 경매 진행 목록
+    table#good-list
+      tr
+        th 상품명
+        th 이미지
+        th 시작 가격
+        th 종료 시간
+        th 입장
+      for good in goods
+        tr
+          td= good.name
+          td: img(src='/img/' + good.img)
+          td= good.price
+          td.time(data-start=good.createdAt) 00:00:00
+          td: a.enter.btn(href='/good/' + good.id) 입장

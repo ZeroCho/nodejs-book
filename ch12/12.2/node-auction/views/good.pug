@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .timeline
+    form#good-form(action='/good' method='post' enctype='multipart/form-data')
+      .input-group
+        label(for='good-name') 상품명
+        input#good-name(name='name' required autofocus)
+      .input-group
+        label(for='good-photo') 상품 사진
+        input#good-photo(type='file' name='img' required)
+      .input-group
+        label(for='good-price') 시작 가격
+        input#good-price(type='number' name='price' required)
+      button#join-btn.btn(type='submit') 상품 등록
