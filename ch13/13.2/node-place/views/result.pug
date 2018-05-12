@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= query + ' 검색 결과(' + results.length + ')'
+  if results
+    for result in results
+      div= result.formatted_address
+      div= JSON.stringify(result.geometry.location)
+      div= result.place_id
+      div= result.name
