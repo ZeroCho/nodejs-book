@@ -23,7 +23,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     return res.redirect('/');
   } catch (error) {
     console.error(error);
-    next(error);
+    return next(error);
   }
 });
 
@@ -44,7 +44,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       }
       return res.redirect('/');
     });
-  })(req, res, next);
+  })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {
@@ -55,7 +55,9 @@ router.get('/logout', isLoggedIn, (req, res) => {
 
 router.get('/kakao', passport.authenticate('kakao'));
 
-router.get('/kakao/callback', passport.authenticate('kakao', { failureRedirect: '/' }), (req, res) => {
+router.get('/kakao/callback', passport.authenticate('kakao', {
+  failureRedirect: '/',
+}), (req, res) => {
   res.redirect('/');
 });
 
