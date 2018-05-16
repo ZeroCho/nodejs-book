@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1= query + ' 검색 결과(' + results.length + ')'
+  #map
+  script.
+    var positions = [];
+  for result in results
+    script.
+      positions.push({
+        lat: #{result.geometry.location.lat},
+        lng: #{result.geometry.location.lng},
+        name: '#{result.name}',
+        id: '#{result.place_id}'
+      });
+  script.
+    function initMap() {
+      var center = positions[0] || { lat: 37.540705, lng: 126.956764 };
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: center
+      });
+
+      positions.forEach(function(pos) {
+        new google.maps.Marker({
+          position: { lat: pos.lat, lng: pos.lng },
+          map: map,
+          title: pos.name
+        });
+      });
+    }
+  script(
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js"
+      + "?key=AIzaSyDaF4Pzmqg5oVAaC4iMIrZVeyq42bAKHhU&callback=initMap"
+  )
