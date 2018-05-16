@@ -10,12 +10,12 @@ const hpp = require('hpp');
 const RedisStore = require('connect-redis')(session);
 require('dotenv').config();
 
-const page = require('./routes/page');
-const auth = require('./routes/auth');
-const post = require('./routes/post');
-const user = require('./routes/user');
-const passportConfig = require('./passport');
+const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const { sequelize } = require('./models');
+const passportConfig = require('./passport');
 const logger = require('./logger');
 
 const app = express();
@@ -55,17 +55,17 @@ const sessionOption = {
 };
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true;
-  sessionOption.cookie.secure = true;
+  // sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', page);
-app.use('/auth', auth);
-app.use('/post', post);
-app.use('/user', user);
+app.use('/', pageRouter);
+app.use('/auth', authRouter);
+app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
