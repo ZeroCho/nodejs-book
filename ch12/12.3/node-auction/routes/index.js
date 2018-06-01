@@ -132,7 +132,7 @@ router.post('/good/:id/bid', isLoggedIn, async (req, res, next) => {
     }
     // 직전 입찰가와 현재 입찰가 비교
     if (good.auctions[0] && good.auctions[0].bid >= bid) {
-      return res.status(403).send('이전 입찰가보다 높아야합니다');
+      return res.status(403).send('이전 입찰가보다 높아야 합니다');
     }
     const result = await Auction.create({
       bid,
