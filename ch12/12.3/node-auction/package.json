@@ -1,7 +1,7 @@
 {
   "name": "node-auction",
   "version": "0.0.1",
-  "description": "",
+  "description": "노드 경매 시스템",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app"

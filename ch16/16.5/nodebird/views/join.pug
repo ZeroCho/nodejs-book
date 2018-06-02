@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .timeline
+    form#join-form(action='/auth/join' method='post')
+      .input-group
+        label(for='join-email') 이메일
+        input#join-email(type='email' name='email')
+      .input-group
+        label(for='join-nick') 닉네임
+        input#join-nick(type='text' name='nick')
+      .input-group
+        label(for='join-password') 비밀번호
+        input#join-password(type='password' name='password')
+      if joinError
+        .error-message= joinError
+      button#join-btn.btn(type='submit') 회원가입
