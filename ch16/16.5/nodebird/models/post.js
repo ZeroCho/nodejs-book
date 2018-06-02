@@ -11,5 +11,7 @@ module.exports = (sequelize, DataTypes) => (
   }, {
     timestamps: true,
     paranoid: true,
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
   })
 );
