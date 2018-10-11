@@ -2,6 +2,8 @@
 
 인프런에서 오신 분들은 ch14가 ch9보다 먼저 나온다는 것을 알아두시면 됩니다.
 
+코드에 오타&오류가 있거나 개선점이 있다면 적극 Pull Request 보내주시면 됩니다!
+
 ![소개 ](http://image.aladin.co.kr/img/img_content/K422533335_01.jpg)
 
 # 목차
