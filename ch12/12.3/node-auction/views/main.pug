@@ -21,7 +21,7 @@ block content
   script.
     var es = new EventSource('/sse');
     es.onmessage = function (e) {
-     [].forEach.call(document.querySelectorAll('.time'), function(td) {
+      document.querySelectorAll('.time').forEach(function(td) {
         var end = new Date(td.dataset.start);
         var server = new Date(parseInt(e.data, 10));
         end.setDate(end.getDate() + 1);

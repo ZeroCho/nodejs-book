@@ -51,7 +51,7 @@ block content
         xhr.send(formData);
       });
     }
-    [].forEach.call(document.querySelectorAll('.twit-follow'), function (tag) {
+    document.querySelectorAll('.twit-follow').forEach(function (tag) {
       tag.addEventListener('click', function () {
         var isLoggedIn = document.querySelector('#my-id');
         if (isLoggedIn) {
