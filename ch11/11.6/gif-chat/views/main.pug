@@ -54,7 +54,7 @@ block content
       document.querySelector('table tbody').appendChild(tr);
     });
     socket.on('removeRoom', function (data) {
-      Array.prototype.forEach.call(document.querySelectorAll('tbody tr'), function (tr) {
+      document.querySelectorAll('tbody tr').forEach(function (tr) {
         if (tr.dataset.id === data) {
           tr.parentNode.removeChild(tr);
         }
@@ -68,6 +68,6 @@ block content
         location.href = '/room/' + e.target.dataset.id;
       }
     }
-    Array.prototype.forEach.call(document.querySelectorAll('.join-btn'), function (btn) {
+    document.querySelectorAll('.join-btn').forEach(function (btn) {
       btn.addEventListener('click', addBtnEvent);
     });
