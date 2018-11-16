@@ -34,12 +34,13 @@ html
           th 나이
           th 결혼여부
       tbody
-        for user in users
-          tr
-            td= user._id
-            td= user.name
-            td= user.age
-            td= user.married ? '기혼' : '미혼'
+        if users
+            for user in users
+              tr
+                td= user._id
+                td= user.name
+                td= user.age
+                td= user.married ? '기혼' : '미혼'
     br
     div
       form#comment-form
