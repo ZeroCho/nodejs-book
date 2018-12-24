@@ -16,6 +16,14 @@ const request = async (req, api) => {
       headers: { authorization: req.session.jwt },
     }); // API 요청
   } catch (error) {
+    if(error.response.status === 419) { // 토큰 만료시
+      // 토큰 재발급 받기
+      const tokenResult = await axios.post(`${URL}/token`, {
+        clientSecret: process.env.CLIENT_SECRET,
+      });
+      req.session.jwt = tokenResult.data.token;
+      return await request(req, api)
+    }
     console.error(error);
     if (error.response.status < 500) { // 410이나 419처럼 의도된 에러면 발생
       return error.response;
