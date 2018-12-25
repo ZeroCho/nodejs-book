@@ -16,11 +16,11 @@ const request = async (req, api) => {
       headers: { authorization: req.session.jwt },
     }); // API 요청
   } catch (error) {
-    console.error(error);
-    if (error.response.status < 500) { // 410이나 419처럼 의도된 에러면 발생
-      return error.response;
-    }
-    throw error;
+    if (error.response.status === 419) { // 토큰 만료시 토큰 재발급 받기
+      delete req.session.jwt;
+      return request(req, api);
+    } // 419 외의 다른 에러면
+    return error.response;
   }
 };
 
