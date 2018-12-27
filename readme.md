@@ -2,6 +2,8 @@
 
 인프런에서 오신 분들은 ch14가 ch9보다 먼저 나온다는 것을 알아두시면 됩니다.
 
+소스 코드를 받으신 후에는 터미널에서 코드의 루트경로(package.json이 있는)로 이동하신 후 npm i를 입력해서 node_modules를 설치하셔야 합니다. node_modules는 이 소스 코드에 포함되어 있지 않습니다.
+
 코드에 오타&오류가 있거나 개선점이 있다면 적극 Pull Request 보내주시면 됩니다!
 
 ![소개 ](http://image.aladin.co.kr/img/img_content/K422533335_01.jpg)
