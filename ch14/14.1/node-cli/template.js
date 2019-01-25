@@ -11,7 +11,7 @@ let directory = process.argv[4] || '.';
 const htmlTemplate = `<!DOCTYPE html>
 <html>
 <head>
-  <meta chart="utf-8" />
+  <meta charset="utf-8" />
   <title>Template</title>
 </head>
 <body>
