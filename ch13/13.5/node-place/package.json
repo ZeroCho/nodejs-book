@@ -12,15 +12,15 @@
     "@google/maps": "^0.4.6",
     "axios": "^0.18.0",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "mongoose": "^5.0.11",
-    "morgan": "^1.9.0",
+    "mongoose": "^5.4.20",
+    "morgan": "^1.9.1",
     "pug": "^2.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.17.2"
+    "nodemon": "^1.18.10"
   }
 }
