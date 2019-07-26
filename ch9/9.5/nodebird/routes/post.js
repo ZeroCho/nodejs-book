@@ -22,7 +22,7 @@ const upload = multer({
     },
     filename(req, file, cb) {
       const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + new Date().valueOf() + ext);
+      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
@@ -41,7 +41,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       img: req.body.url,
       userId: req.user.id,
     });
-    const hashtags = req.body.content.match(/#[^\s]*/g);
+    const hashtags = req.body.content.match(/#[^\s#]*/g);
     if (hashtags) {
       const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
         where: { title: tag.slice(1).toLowerCase() },
@@ -61,7 +61,7 @@ router.get('/hashtag', async (req, res, next) => {
     return res.redirect('/');
   }
   try {
-    const hashtag = await Hashtag.find({ where: { title: query } });
+    const hashtag = await Hashtag.findOne({ where: { title: query } });
     let posts = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });

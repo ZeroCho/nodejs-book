@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   User.find({
-    where: { id: req.user && req.user.id },
+    where: { id: req.user && req.user.id || null },
     include: { model: Domain },
   })
     .then((user) => {
