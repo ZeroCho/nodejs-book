@@ -38,7 +38,7 @@ http.createServer((req, res) => {
       return req.on('end', () => {
         console.log('POST 본문(Body):', body);
         const { name } = JSON.parse(body);
-        const id = +new Date();
+        const id = Date.now();
         users[id] = name;
         res.writeHead(201);
         res.end('등록 성공');

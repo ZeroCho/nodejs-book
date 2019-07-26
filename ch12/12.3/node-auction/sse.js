@@ -4,7 +4,7 @@ module.exports = (server) => {
   const sse = new SSE(server);
   sse.on('connection', (client) => {
     setInterval(() => {
-      client.send(new Date().valueOf().toString());
+      client.send(Date.now().toString());
     }, 1000);
   });
 };

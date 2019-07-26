@@ -28,7 +28,7 @@ const upload = multer({
     s3: new AWS.S3(),
     bucket: 'nodebird',
     key(req, file, cb) {
-      cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
+      cb(null, `original/${Date.now()}${path.basename(file.originalname)}`);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
@@ -49,7 +49,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       img: req.body.url,
       userId: req.user.id,
     });
-    const hashtags = req.body.content.match(/#[^\s]*/g);
+    const hashtags = req.body.content.match(/#[^\s#]*/g);
     if (hashtags) {
       const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
         where: { title: tag.slice(1).toLowerCase() },
@@ -69,7 +69,7 @@ router.get('/hashtag', async (req, res, next) => {
     return res.redirect('/');
   }
   try {
-    const hashtag = await Hashtag.find({ where: { title: query } });
+    const hashtag = await Hashtag.findOne({ where: { title: query } });
     let posts = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });

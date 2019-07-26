@@ -21,7 +21,7 @@ http.createServer((req, res) => {
     const { name } = qs.parse(query);
     const expires = new Date();
     expires.setMinutes(expires.getMinutes() + 5);
-    const randomInt = +new Date();
+    const randomInt = Date.now();
     session[randomInt] = {
       name,
       expires,
