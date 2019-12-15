@@ -6,4 +6,3 @@ setInterval(() => {
     console.error(err);
   }
 }, 1000);
-console.log(process.argv);

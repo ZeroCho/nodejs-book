@@ -1,8 +1,9 @@
-const path = require('path');
 const Sequelize = require('sequelize');
+const User = require('./user');
+const Comment = require('./comment');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+const config = require('../config/config')[env];
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
@@ -10,10 +11,13 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.User = require('./user')(sequelize, Sequelize);
-db.Comment = require('./comment')(sequelize, Sequelize);
+db.User = User;
+db.Comment = Comment;
 
-db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
-db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
+User.init(sequelize);
+Comment.init(sequelize);
+
+User.associate(db);
+Comment.associate(db);
 
 module.exports = db;

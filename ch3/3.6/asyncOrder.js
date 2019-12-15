@@ -16,7 +16,7 @@ fs.readFile('./readme2.txt', (err, data) => {
         throw err;
       }
       console.log('3번', data.toString());
+      console.log('끝');
     });
   });
 });
-console.log('끝');

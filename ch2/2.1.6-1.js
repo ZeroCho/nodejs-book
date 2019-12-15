@@ -13,4 +13,7 @@ promise
   })
   .catch((error) => {
     console.error(error); // 실패(reject)한 경우 실행
+  })
+  .finally(() => { // 끝나고 무조건 실행
+    console.log('무조건');
   });

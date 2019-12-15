@@ -10,12 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.4",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10",
+    "nodemon": "^2.0.1",
     "rimraf": "^2.6.3"
   }
 }
