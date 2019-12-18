@@ -1,17 +1,16 @@
-var express = require('express');
-var User = require('../schemas/user');
+const express = require('express');
+const User = require('../schemas/user');
 
-var router = express.Router();
+const router = express.Router();
 
-router.get('/', function (req, res, next) {
-  User.find({})
-    .then((users) => {
-      res.render('mongoose', { users });
-    })
-    .catch((err) => {
-      console.error(err);
-      next(err);
-    });
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.find({});
+    res.render('mongoose', { users });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
 module.exports = router;

@@ -1,35 +1,44 @@
-var express = require('express');
-var User = require('../schemas/user');
+const express = require('express');
+const User = require('../schemas/user');
+const Comment = require('../schemas/comment');
 
-var router = express.Router();
+const router = express.Router();
 
-router.get('/', function (req, res, next) {
-  User.find({})
-    .then((users) => {
+router.route('/')
+  .get(async (req, res, next) => {
+    try {
+      const users = await User.find({});
       res.json(users);
-    })
-    .catch((err) => {
+    } catch (err) {
       console.error(err);
       next(err);
-    });
-});
-
-router.post('/', function (req, res, next) {
-  const user = new User({
-    name: req.body.name,
-    age: req.body.age,
-    married: req.body.married,
+    }
+  })
+  .post(async (req, res, next) => {
+    try {
+      const user = await User.create({
+        name: req.body.name,
+        age: req.body.age,
+        married: req.body.married,
+      });
+      console.log(user);
+      res.status(201).json(user);
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
   });
-  user.save()
-    .then((result) => {
-      console.log(result);
-      res.status(201).json(result);
-    })
-    .catch((err) => {
-      console.error(err);
-      next(err);
-    });
+
+router.get('/:id/comments', async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ commenter: req.params.id })
+      .populate('commenter');
+    console.log(comments);
+    res.json(comments);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
 module.exports = router;
-

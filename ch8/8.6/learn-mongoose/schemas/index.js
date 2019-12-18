@@ -6,6 +6,8 @@ const connect = () => {
   }
   mongoose.connect('mongodb://root:nodejsbook@localhost:27017/admin', {
     dbName: 'nodejs',
+    useNewUrlParser: true,
+    useCreateIndex: true,
   }, (error) => {
     if (error) {
       console.log('몽고디비 연결 에러', error);

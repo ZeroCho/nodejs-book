@@ -1,17 +1,17 @@
 {
   "name": "learn-mongoose",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
+  "description": "몽구스를 배우자",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon app"
   },
+  "author": "ZeroCho",
+  "license": "MIT",
   "dependencies": {
-    "cookie-parser": "^1.4.4",
-    "debug": "~2.6.9",
     "express": "^4.16.4",
-    "http-errors": "~1.6.2",
     "mongoose": "^5.4.20",
     "morgan": "^1.9.1",
-    "pug": "^2.0.3"
+    "nunjucks": "^3.2.0"
   }
 }
