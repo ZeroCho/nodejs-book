@@ -21,16 +21,16 @@
         </div>
       {% endif %}
       <div class="twits">
-        <form id="hashtag-form" action="/post/hashtag">
+        <form id="hashtag-form" action="/hashtag">
           <input type="text" name="hashtag" placeholder="태그 검색">
           <button class="btn">검색</button>
         </form>
         {% for twit in twits %}
           <div class="twit">
-            <input type="hidden" value="{{twit.user.id}}" class="twit-user-id">
+            <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
             <input type="hidden" value="{{twit.id}}" class="twit-id">
-            <div class="twit-author">{{twit.user.nick}}</div>
-            {% if showFollowButton %}
+            <div class="twit-author">{{twit.User.nick}}</div>
+            {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
               <button class="twit-follow">팔로우하기</button>
             {% endif %}
             <div class="twit-content">{{twit.content}}</div>

@@ -6,6 +6,7 @@ router.use((req, res, next) => {
   res.locals.user = null;
   res.locals.followerCount = 0;
   res.locals.followingCount = 0;
+  res.locals.followerIdList = [];
   next();
 });
 
@@ -19,11 +20,9 @@ router.get('/join', (req, res) => {
 
 router.get('/', (req, res, next) => {
   const twits = [];
-  const showFollowButton = false;
   res.render('main', {
     title: 'NodeBird',
     twits,
-    showFollowButton,
   });
 });
 
