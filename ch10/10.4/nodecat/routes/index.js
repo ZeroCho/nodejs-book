@@ -3,9 +3,9 @@ const axios = require('axios');
 
 const router = express.Router();
 
-router.get('/test', async (req, res, next) => {
+router.get('/test', async (req, res, next) => { // 토큰 테스트 라우터
   try {
-    if (!req.session.jwt) { // 세션에 토큰이 없으면
+    if (!req.session.jwt) { // 세션에 토큰이 없으면 토큰 발급 시도
       const tokenResult = await axios.post('http://localhost:8002/v1/token', {
         clientSecret: process.env.CLIENT_SECRET,
       });

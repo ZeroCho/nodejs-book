@@ -1,14 +1,15 @@
+const passport = require('passport');
 const local = require('./localStrategy');
 const kakao = require('./kakaoStrategy');
 const { User } = require('../models');
 
-module.exports = (passport) => {
+module.exports = () => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {
-    User.find({
+    User.findOne({
       where: { id },
       include: [{
         model: User,
@@ -24,6 +25,6 @@ module.exports = (passport) => {
       .catch(err => done(err));
   });
 
-  local(passport);
-  kakao(passport);
+  local();
+  kakao();
 };

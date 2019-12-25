@@ -2,14 +2,14 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 
 const { verifyToken } = require('./middlewares');
-const { Domain, User, Post, Hashtag } = require('../models');
+const { Domain, User } = require('../models');
 
 const router = express.Router();
 
 router.post('/token', async (req, res) => {
   const { clientSecret } = req.body;
   try {
-    const domain = await Domain.find({
+    const domain = await Domain.findOne({
       where: { clientSecret },
       include: {
         model: User,
@@ -23,8 +23,8 @@ router.post('/token', async (req, res) => {
       });
     }
     const token = jwt.sign({
-      id: domain.user.id,
-      nick: domain.user.nick,
+      id: domain.User.id,
+      nick: domain.User.nick,
     }, process.env.JWT_SECRET, {
       expiresIn: '1m', // 1분
       issuer: 'nodebird',

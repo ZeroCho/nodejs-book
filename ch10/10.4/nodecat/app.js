@@ -1,17 +1,20 @@
 const express = require('express');
-const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-require('dotenv').config();
+const nunjucks = require('nunjucks');
+const dotenv = require('dotenv');
 
 const indexRouter = require('./routes');
 
+dotenv.config();
 const app = express();
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-app.set('port', process.env.PORT || 8003);
+app.set('port', process.env.PORT || 4000);
+app.set('view engine', 'html');
+nunjucks.configure('views', {
+  express: app,
+  watch: true,
+});
 
 app.use(morgan('dev'));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -28,14 +31,14 @@ app.use(session({
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+  error.status = 404;
+  next(error);
 });
 
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
   res.status(err.status || 500);
   res.render('error');
 });

@@ -1,0 +1,23 @@
+{
+  "name": "nodecat",
+  "version": "0.0.1",
+  "description": "노드버드 2차 서비스",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "Zero Cho",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "morgan": "^1.9.1",
+    "nunjucks": "^3.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
