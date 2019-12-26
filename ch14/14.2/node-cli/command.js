@@ -5,19 +5,22 @@ const path = require('path');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 
-const htmlTemplate = `<!DOCTYPE html>
-<html>
-<head>
-  <meta chart="utf-8" />
-  <title>Template</title>
-</head>
-<body>
-  <h1>Hello</h1>
-  <p>CLI</p>
-</body>
-</html>`;
+const htmlTemplate = `
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta chart="utf-8" />
+    <title>Template</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <p>CLI</p>
+  </body>
+</html>
+`;
 
-const routerTemplate = `const express = require('express');
+const routerTemplate = `
+const express = require('express');
 const router = express.Router();
  
 router.get('/', (req, res, next) => {
@@ -29,7 +32,8 @@ router.get('/', (req, res, next) => {
    }
 });
  
-module.exports = router;`;
+module.exports = router;
+`;
 
 const exist = (dir) => {
   try {
@@ -96,7 +100,7 @@ program
 program
   .command('*', { noHelp: true })
   .action(() => {
-    console.log('해당 명령어를 찾을 수 없습니다.');
+    console.error(chalk.bold.red('해당 명령어를 찾을 수 없습니다.'));
     program.help();
     triggered = true;
   });

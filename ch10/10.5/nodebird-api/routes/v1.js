@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/token', async (req, res) => {
   const { clientSecret } = req.body;
   try {
-    const domain = await Domain.find({
+    const domain = await Domain.findOne({
       where: { clientSecret },
       include: {
         model: User,
@@ -23,8 +23,8 @@ router.post('/token', async (req, res) => {
       });
     }
     const token = jwt.sign({
-      id: domain.user.id,
-      nick: domain.user.nick,
+      id: domain.User.id,
+      nick: domain.User.nick,
     }, process.env.JWT_SECRET, {
       expiresIn: '1m', // 1분
       issuer: 'nodebird',
@@ -67,7 +67,7 @@ router.get('/posts/my', verifyToken, (req, res) => {
 
 router.get('/posts/hashtag/:title', verifyToken, async (req, res) => {
   try {
-    const hashtag = await Hashtag.find({ where: { title: req.params.title } });
+    const hashtag = await Hashtag.findOne({ where: { title: req.params.title } });
     if (!hashtag) {
       return res.status(404).json({
         code: 404,

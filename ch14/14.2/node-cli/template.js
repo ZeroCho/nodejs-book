@@ -8,19 +8,22 @@ let type = process.argv[2];
 let name = process.argv[3];
 let directory = process.argv[4] || '.';
 
-const htmlTemplate = `<!DOCTYPE html>
+const htmlTemplate = `
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>Template</title>
-</head>
-<body>
-  <h1>Hello</h1>
-  <p>CLI</p>
-</body>
-</html>`;
+  <head>
+    <meta charset="utf-8" />
+    <title>Template</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <p>CLI</p>
+  </body>
+</html>
+`;
 
-const routerTemplate = `const express = require('express');
+const routerTemplate = `
+const express = require('express');
 const router = express.Router();
  
 router.get('/', (req, res, next) => {
@@ -32,9 +35,10 @@ router.get('/', (req, res, next) => {
    }
 });
  
-module.exports = router;`;
+module.exports = router;
+`;
 
-const exist = (dir) => {
+const exist = (dir) => { // 폴더 존제 확인 함수
   try {
     fs.accessSync(dir, fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK);
     return true;
@@ -43,7 +47,7 @@ const exist = (dir) => {
   }
 };
 
-const mkdirp = (dir) => {
+const mkdirp = (dir) => { // 경로 생성 함수
   const dirname = path
     .relative('.', path.normalize(dir))
     .split(path.sep)
@@ -56,7 +60,7 @@ const mkdirp = (dir) => {
   });
 };
 
-const makeTemplate = () => {
+const makeTemplate = () => { // 템플릿 생성 함수
   mkdirp(directory);
   if (type === 'html') {
     const pathToFile = path.join(directory, `${name}.html`);
@@ -79,13 +83,13 @@ const makeTemplate = () => {
   }
 };
 
-const dirAnswer = (answer) => {
+const dirAnswer = (answer) => { // 경로 설정
   directory = (answer && answer.trim()) || '.';
   rl.close();
   makeTemplate();
 };
 
-const nameAnswer = (answer) => {
+const nameAnswer = (answer) => { // 파일명 설정
   if (!answer || !answer.trim()) {
     console.clear();
     console.log('name을 반드시 입력하셔야 합니다.');
@@ -95,7 +99,7 @@ const nameAnswer = (answer) => {
   return rl.question('저장할 경로를 설정하세요.(설정하지 않으면 현재경로) ', dirAnswer);
 };
 
-const typeAnswer = (answer) => {
+const typeAnswer = (answer) => { // 템플릿 종류 설정
   if (answer !== 'html' && answer !== 'express-router') {
     console.clear();
     console.log('html 또는 express-router만 지원합니다.');
@@ -118,4 +122,4 @@ const program = () => {
   }
 };
 
-program();
+program(); // 프로그램 실행부
