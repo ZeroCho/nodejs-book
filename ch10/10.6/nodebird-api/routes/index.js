@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
     });
     res.render('login', {
       user,
-      domains: user && user.domains,
+      domains: user && user.Domains,
     });
   } catch (err) {
     console.error(err);

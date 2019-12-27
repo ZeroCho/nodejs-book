@@ -35,7 +35,7 @@
           <th>타입</th>
           <th>클라이언트 비밀키</th>
         </tr>
-        {% for domain in user.domains %}
+        {% for domain in domains %}
           <tr>
             <td>{{domain.host}}</td>
             <td>{{domain.type}}</td>

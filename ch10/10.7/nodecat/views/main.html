@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>프론트 API 요청</title>
+  </head>
+  <body>
+  <div id="result"></div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    axios.post('http://localhost:8002/v2/token', {
+      clientSecret: '{{key}}',
+    })
+      .then((res) => {
+        document.querySelector('#result').textContent = JSON.stringify(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  </script>
+  </body>
+</html>

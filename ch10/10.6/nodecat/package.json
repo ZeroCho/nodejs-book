@@ -1,5 +1,5 @@
 {
-  "name": "nodebird-call",
+  "name": "nodecat",
   "version": "0.0.1",
   "description": "노드버드 2차 서비스",
   "main": "app.js",

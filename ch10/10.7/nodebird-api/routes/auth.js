@@ -11,8 +11,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   try {
     const exUser = await User.find({ where: { email } });
     if (exUser) {
-      req.flash('joinError', '이미 가입된 이메일입니다.');
-      return res.redirect('/join');
+      return res.redirect('/join?error=exist');
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
@@ -34,8 +33,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      req.flash('loginError', info.message);
-      return res.redirect('/');
+      return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
