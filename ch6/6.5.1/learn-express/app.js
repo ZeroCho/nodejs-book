@@ -5,10 +5,10 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
 
+dotenv.config();
 const indexRouter = require('./routes');
 const userRouter = require('./routes/user');
 
-dotenv.config();
 const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

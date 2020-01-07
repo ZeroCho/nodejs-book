@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block good %}
+  <h2>{{good.name}}</h2>
+  <div>등록자: {{good.Owner.nick}}</div>
+  <div>시작가: {{good.price}}원</div>
+  <strong id="time" data-start="{{good.createdAt}}"></strong>
+  <img id="good-img" src="/img/{{good.img}}">
+{% endblock %}
+
+{% block content %}
+  <div class="timeline">
+    <div id="bid">
+      {% for bid in auction %}
+        <div>
+          <span>{{bid.User.nick}}님: </span>
+          <strong>{{bid.bid}}원에 입찰하셨습니다.</strong>
+          {% if bid.msg %}
+            <span>({{bid.msg}})</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <form id="bid-form">
+      <input type="number" name="bid" placeholder="입찰가" required min="{{good.price}}">
+      <input type="msg" name="msg" placeholder="메시지(선택사항)" maxlength="100">
+    <button class="btn" type="submit">입찰</button>
+    </form>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/event-source-polyfill/src/eventsource.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    document.querySelector('#bid-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const xhr = new XMLHttpRequest();
+      const errorMessage = document.querySelector('.error-message');
+      axios.post('/good/{{good.id}}/bid', { // 입찰 진행
+        bid: e.target.bid.value,
+        msg: e.target.msg.value,
+      })
+        .catch((err) => {
+          console.error(err);
+          alert(err.response.data);
+        })
+        .finally(() => {
+          e.target.bid.value = '';
+          e.target.msg.value = '';
+          errorMessage.textContent = '';
+        });
+    });
+    const es = new EventSource("/sse");
+    const time = document.querySelector('#time');
+    es.onmessage = (e) => {
+      const end = new Date(time.dataset.start); // 경매 시작 시간
+      const server = new Date(parseInt(e.data, 10));
+      end.setDate(end.getDate() + 1); // 경매 종료 시간
+      if (server >= end) { // 경매가 종료되었으면
+        return time.textContent = '00:00:00';
+      } else {
+        const t = end - server;
+        const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
+        const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
+        const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
+        return time.textContent = hours + ':' + minutes + ':' + seconds;
+      }
+    };
+    const socket = io.connect('http://localhost:8010', {
+      path: '/socket.io'
+    });
+    socket.on('bid', (data) => { // 누군가가 입찰했을 때
+      const div = document.createElement('div');
+      let span = document.createElement('span');
+      span.textContent = data.nick + '님: ';
+      const strong = document.createElement('strong');
+      strong.textContent = data.bid + '원에 입찰하셨습니다.';
+      div.appendChild(span);
+      div.appendChild(strong);
+      if (data.msg) {
+        span = document.createElement('span');
+        span.textContent = `(${data.msg})`;
+        div.appendChild(span);
+      }
+      document.querySelector('#bid').appendChild(div);
+    });
+  </script>
+  <script>
+    window.onload = () => {
+      if (new URL(location.href).searchParams.get('auctionError')) {
+        alert(new URL(location.href).searchParams.get('auctionError'));
+      }
+    };
+  </script>
+{% endblock %}

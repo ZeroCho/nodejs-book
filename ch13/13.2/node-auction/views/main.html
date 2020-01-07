@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <h2>경매 진행 목록</h2>
+    <table id="good-list">
+      <tr>
+        <th>상품명</th>
+        <th>이미지</th>
+        <th>시작 가격</th>
+        <th>종료 시간</th>
+        <th>입장</th>
+      </tr>
+      {% for good in goods %}
+        <tr>
+          <td>{{good.name}}</td>
+          <td>
+            <img src="/img/{{good.img}}">
+          </td>
+          <td>{{good.price}}</td>
+          <td class="time" data-start="{{good.createdAt}}">00:00:00</td>
+          <td>
+            <a href="/good/{{good.id}}" class="enter btn">입장</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <script src="https://unpkg.com/event-source-polyfill/src/eventsource.min.js"></script>
+  <script>
+    const es = new EventSource('/sse');
+    es.onmessage = function (e) {
+      document.querySelectorAll('.time').forEach((td) => {
+        const end = new Date(td.dataset.start); // 경매 시작 시간
+        const server = new Date(parseInt(e.data, 10));
+        end.setDate(end.getDate() + 1); // 경매 종료 시간
+        if (server >= end) { // 경매가 종료되었으면
+          return td.textContent = '00:00:00';
+        } else {
+          const t = end - server; // 경매 종료까지 남은 시간
+          const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
+          const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
+          const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
+          return td.textContent = hours + ':' + minutes + ':' + seconds ;
+        }
+      });
+    };
+  </script>
+{% endblock %}

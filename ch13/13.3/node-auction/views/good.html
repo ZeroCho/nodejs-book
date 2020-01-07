@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <form action="/good" id="good-form" method="post" enctype="multipart/form-data">
+      <div class="input-group">
+        <label for="good-name">상품명</label>
+        <input type="text" id="good-name" name="name" required autofocus>
+      </div>
+      <div class="input-group">
+        <label for="good-photo">상품 사진</label>
+        <input type="file" id="good-photo" name="img" required>
+      </div>
+      <div class="input-group">
+        <label for="good-price">시작 가격</label>
+        <input type="number" id="good-price" name="price" required>
+      </div>
+      <button id="join-btn" class="btn" type="submit">상품 등록</button>
+    </form>
+  </div>
+{% endblock %}

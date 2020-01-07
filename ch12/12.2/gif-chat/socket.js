@@ -17,7 +17,7 @@ module.exports = (server) => {
       clearInterval(ws.interval);
     });
 
-    ws.interval = setInterval(() => { // 매 초마다 클라이언트로 메시지 전송
+    ws.interval = setInterval(() => { // 3초마다 클라이언트로 메시지 전송
       if (ws.readyState === ws.OPEN) {
         ws.send('서버에서 클라이언트로 메시지를 보냅니다.');
       }

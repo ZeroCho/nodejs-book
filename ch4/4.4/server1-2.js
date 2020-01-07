@@ -14,5 +14,5 @@ http2.createSecureServer({
   res.end('<p>Hello Server!</p>');
 })
   .listen(443, () => {
-    console.log('443번 포트에서 서버 대기중입니다!');
+    console.log('443번 포트에서 서버 대기 중입니다!');
   });

@@ -73,5 +73,5 @@ http.createServer(async (req, res) => {
   }
 })
   .listen(8082, () => {
-    console.log('8082번 포트에서 서버 대기중입니다');
+    console.log('8082번 포트에서 서버 대기 중입니다');
   });

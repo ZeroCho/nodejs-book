@@ -5,9 +5,9 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
+dotenv.config();
 const indexRouter = require('./routes');
 
-dotenv.config();
 const app = express();
 app.set('port', process.env.PORT || 4000);
 app.set('view engine', 'html');

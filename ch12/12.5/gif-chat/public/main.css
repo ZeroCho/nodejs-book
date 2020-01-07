@@ -1,0 +1,33 @@
+* { box-sizing: border-box; }
+.mine { text-align: right; }
+.system { text-align: center; }
+.mine img, .other img {
+  max-width: 300px;
+  display: inline-block;
+  border: 1px solid silver;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+.mine div:first-child, .other div:first-child { font-size: 12px; }
+.mine div:last-child, .other div:last-child {
+  display: inline-block;
+  border: 1px solid silver;
+  border-radius: 5px;
+  padding: 2px 5px;
+  max-width: 300px;
+}
+#exit-btn { position: absolute; top: 20px; right: 20px; }
+#chat-list { height: 500px; overflow: auto; padding: 5px; }
+#chat-form { text-align: right; }
+label[for='gif'], #chat, #chat-form [type='submit'] {
+  display: inline-block;
+  height: 30px;
+  vertical-align: top;
+}
+label[for='gif'] { cursor: pointer; padding: 5px; }
+#gif { display: none; }
+table, table th, table td {
+  text-align: center;
+  border: 1px solid silver;
+  border-collapse: collapse;
+}

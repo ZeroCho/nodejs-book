@@ -1,4 +1,4 @@
-const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 describe('isLoggedIn', () => {
   const res = {
@@ -12,7 +12,7 @@ describe('isLoggedIn', () => {
       isAuthenticated: jest.fn(() => true),
     };
     isLoggedIn(req, res, next);
-    expect(next).toHaveBeenCalledTimes(1);
+    expect(next).toBeCalledTimes(1);
   });
 
   test('로그인 되어있지 않으면 isLoggedIn이 에러를 응답해야 함', () => {

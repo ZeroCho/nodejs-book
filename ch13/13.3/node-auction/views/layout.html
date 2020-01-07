@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-wrap">
+        <div class="profile">
+          {% if user and user.id %}
+            <div class="user-name">안녕하세요 {{user.nick}}님</div>
+            <div class="user-money">보유 자산: {{user.money}}원</div>
+            <input type="hidden" id="my-id" value="user.id">
+            <a href="/auth/logout" id="logout" class="btn">로그아웃</a>
+            <a href="/good" id="register" class="btn">상품 등록</a>
+          {% else %}
+            <form action="/auth/login" id="login-form" method="post">
+              <div class="input-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required autofocus>
+              </div>
+              <div class="input-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required>
+              </div>
+              <a href="/join" id="join" class="btn">회원가입</a>
+              <button id="login" class="btn" type="submit">로그인</button>
+            </form>
+          {% endif %}
+        </div>
+        <footer>
+          Made by&nbsp;<a href="https://www.zerocho.com" target="_blank">ZeroCho</a>
+        </footer>
+        {% block good %}
+        {% endblock %}
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get('loginError')) {
+          alert(new URL(location.href).searchParams.get('loginError'));
+        }
+      };
+    </script>
+  </body>
+</html>

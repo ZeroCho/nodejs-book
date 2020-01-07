@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
-    "test": "jest",
-    "coverage": "jest coverage"
+    "test": "jest"
   },
   "author": "ZeroCho",
   "license": "MIT",

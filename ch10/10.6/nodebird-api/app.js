@@ -7,6 +7,7 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
+dotenv.config();
 const v1 = require('./routes/v1');
 const v2 = require('./routes/v2');
 const authRouter = require('./routes/auth');
@@ -14,7 +15,6 @@ const indexRouter = require('./routes');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
-dotenv.config();
 const app = express();
 passportConfig();
 app.set('port', process.env.PORT || 8002);

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <h2>경매 진행 목록</h2>
+    <table id="good-list">
+      <tr>
+        <th>상품명</th>
+        <th>이미지</th>
+        <th>시작 가격</th>
+        <th>종료 시간</th>
+        <th>입장</th>
+      </tr>
+      {% for good in goods %}
+        <tr>
+          <td>{{good.name}}</td>
+          <td>
+            <img src="/img/{{good.img}}">
+          </td>
+          <td>{{good.price}}</td>
+          <td class="time" data-start="{{good.createdAt}}">00:00:00</td>
+          <td>
+            <a href="/good/{{good.id}}" class="enter btn">입장</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
