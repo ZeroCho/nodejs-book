@@ -10,6 +10,6 @@ exports.isNotLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/');
+    res.redirect('/?error=로그인한 상태입니다.');
   }
 };

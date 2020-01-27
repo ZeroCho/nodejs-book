@@ -1,7 +1,6 @@
 const fs = require('fs').promises;
 const constants = require('fs').constants;
 
-console.log(constants.F_OK, constants.R_OK, constants.W_OK);
 fs.access('./folder', constants.F_OK | constants.W_OK | constants.R_OK)
   .then(() => {
     return Promise.reject('이미 폴더 있음');
