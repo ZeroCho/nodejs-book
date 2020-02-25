@@ -18,7 +18,9 @@ describe('POST /join', () => {
       .expect('Location', '/')
       .expect(302, done);
   });
+});
 
+describe('POST /login', () => {
   const agent = request.agent(app);
   beforeEach((done) => {
     agent
@@ -106,4 +108,8 @@ describe('GET /logout', () => {
       .expect('Location', `/`)
       .expect(302, done);
   });
+});
+
+afterAll(async () => {
+  await sequelize.sync({ force: true });
 });
