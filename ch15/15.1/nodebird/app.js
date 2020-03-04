@@ -10,13 +10,12 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+
+dotenv.config();
 const redisClient = redis.createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
   password: process.env.REDIS_PASSWORD,
 });
-require('dotenv').config();
-
-dotenv.config();
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
