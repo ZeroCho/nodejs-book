@@ -1,19 +1,10 @@
 const express = require('express');
 
 const { isLoggedIn } = require('./middlewares');
-const { User } = require('../models');
+const { addFollowing } = require('../controllers/user');
 
 const router = express.Router();
 
-router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
-  try {
-    const user = await User.find({ where: { id: req.user.id } });
-    await user.addFollowing(parseInt(req.params.id, 10));
-    res.send('success');
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+router.post('/:id/follow', isLoggedIn, addFollowing);
 
 module.exports = router;

@@ -7,6 +7,6 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.634.0",
-    "gm": "^1.23.1"
+    "sharp": "^0.25.1"
   }
 }
