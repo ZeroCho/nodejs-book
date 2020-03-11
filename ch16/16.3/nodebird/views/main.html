@@ -38,7 +38,7 @@
               <div class="twit-img">
                 <img
                   src="{{twit.img}}"
-                  onerror="this.src = '{{twit.img.replace(/\/original\//, '/thumb/')}}';"
+                  onerror="this.src = this.src.replace(/\/thumb\//, '/original/');"
                   alt="섬네일"
                 />
               </div>
