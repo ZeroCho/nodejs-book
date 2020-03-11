@@ -6,7 +6,7 @@
   "author": "ZeroCho",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.224.1",
-    "gm": "^1.23.1"
+    "aws-sdk": "^2.634.0",
+    "sharp": "^0.25.1"
   }
 }

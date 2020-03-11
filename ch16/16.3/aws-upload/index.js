@@ -1,49 +1,32 @@
 const AWS = require('aws-sdk');
-const gm = require('gm').subClass({ imageMagick: true });
+const sharp = require('sharp');
 
 const s3 = new AWS.S3();
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
   const Bucket = event.Records[0].s3.bucket.name;
   const Key = event.Records[0].s3.object.key;
   const filename = Key.split('/')[Key.split('/').length - 1];
   const ext = Key.split('.')[Key.split('.').length - 1];
-  console.log('Key', Key, filename, ext);
-  s3.getObject({ Bucket, Key }, (err, data) => {
-    if (err) {
-      console.error(err);
-      return callback(err);
-    }
-    console.log('getObj', data);
-    return gm(Buffer.from(data.Body))
-      .resize(800, 800)
-      .stream(function (err, stdout, stderr) { // 스트림에 출력하는
-        if (err) {
-          console.error(err);
-          return callback(err);
-        }
-        const chunks = [];  // 스트림 청크를 모으는위한 배열
-        stdout.on('data', function (chunk) {
-          console.log('pushed');
-          chunks.push(chunk);  // 청크를 모으는
-        });
-        stdout.on('end', function () {
-          console.log('end');
-          const buffer = Buffer.concat(chunks);  // 마지막까지 모아서 저축 경우에 결합하여 버퍼로 내보낼
-          console.log('buffer', buffer);
-          s3.putObject({
-            Bucket,
-            Key: `thumb/${filename}`,
-            Body: buffer,
-          }, function (err, data) {  // S3에 내보낼
-            if (err) {
-              console.error(err);
-              return callback(err);
-            }
-            console.log('put');
-            return callback(null, `thumb/${filename}`);
-          });
-        });
-      });
-  });
-}
+  const requiredFormat = ext === 'jpg' ? 'jpeg' : ext; // sharp에서는 jpg 대신 jpeg 사용합니다.
+  console.log('name', filename, 'ext', ext);
+
+  try {
+    const s3Object = await s3.getObject({ Bucket, Key }).promise(); // 버퍼로 가져오기
+    console.log('original', s3Object.Body.length);
+    const resizedImage = await sharp(s3Object.Body) // 리사이징
+      .resize(200, 200, { fit: 'inside' })
+      .toFormat(requiredFormat)
+      .toBuffer();
+    await s3.putObject({ // thumb 폴더에 저장
+      Bucket,
+      Key: `thumb/${filename}`,
+      Body: resizedImage,
+    }).promise();
+    console.log('put', resizedImage.length);
+    return callback(null, `thumb/${filename}`);
+  } catch (error) {
+    console.error(error);
+    return callback(error);
+  }
+};
