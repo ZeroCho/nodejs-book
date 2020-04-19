@@ -36,7 +36,8 @@ describe('isNotLoggedIn', () => {
       isAuthenticated: jest.fn(() => true),
     };
     isNotLoggedIn(req, res, next);
-    expect(res.redirect).toBeCalledWith('/?error=로그인한 상태입니다.');
+    const message = encodeURIComponent('로그인한 상태입니다.');
+    expect(res.redirect).toBeCalledWith(`/?error=${message}`);
   });
 
   test('로그인 되어있지 않으면 isNotLoggedIn이 next를 호출해야 함', () => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
 const multerGoogleStorage = require('multer-google-storage');
 
 const { Post, Hashtag } = require('../models');
@@ -20,6 +21,9 @@ const upload = multer({
     bucket: 'nodebird',
     projectId: 'node-deploy-270114',
     keyFilename: 'node-deploy-270114-b024dbed754a.json',
+    filename(req, file, cb) {
+      cb(null, `original/${Date.now()}${path.basename(file.originalname)}`);
+    },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });

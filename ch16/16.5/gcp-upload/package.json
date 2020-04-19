@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/storage": "^1.6.0",
-    "gm": "^1.23.1"
+    "gm": "^1.23.1",
+    "sharp": "^0.25.1"
   }
 }

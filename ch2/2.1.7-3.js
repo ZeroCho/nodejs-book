@@ -1,11 +1,16 @@
-async function findAndSaveUser(Users) {
-  try {
-    let user = await Users.findOne({});
+function findAndSaveUser(Users) {
+  Users.findOne({}, (err, user) => { // 첫 번째 콜백
+    if (err) {
+      return console.error(err);
+    }
     user.name = 'zero';
-    user = await user.save();
-    user = await Users.findOne({ gender: 'm' });
-    // 생략
-  } catch (error) {
-    console.error(error);
-  }
+    user.save((err) => { // 두 번째 콜백
+      if (err) {
+        return console.error(err);
+      }
+      Users.findOne({ gender: 'm' }, (err, user) => { // 세 번째 콜백
+        // 생략
+      });
+    });
+  });
 }
