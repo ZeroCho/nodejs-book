@@ -8,7 +8,6 @@ const obj = {
     },
   },
 };
-console.log(process.argv);
 console.time('전체시간');
 console.log('평범한 로그입니다 쉼표로 구분해 여러 값을 찍을 수 있습니다');
 console.log(string, number, boolean);

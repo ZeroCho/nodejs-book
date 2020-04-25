@@ -1,6 +1,5 @@
 process.on('uncaughtException', (err) => {
   console.error('예기치 못한 에러', err);
-  process.exit();
 });
 
 setInterval(() => {

@@ -34,7 +34,6 @@ if (isMainThread) {
   }
   threads.add(new Worker(__filename, { workerData: { start, range: range + ((max - min + 1) % threadCount) } }));
   for (let worker of threads) {
-    console.time(worker.threadId);
     worker.on('error', (err) => {
       throw err;
     });
@@ -46,7 +45,6 @@ if (isMainThread) {
       }
     });
     worker.on('message', (msg) => {
-      console.timeEnd(worker.threadId);
       primes = primes.concat(msg);
     });
   }
