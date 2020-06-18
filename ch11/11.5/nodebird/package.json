@@ -10,24 +10,24 @@
   "author": "ZeroCho",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.7",
-    "cookie-parser": "^1.4.3",
+    "bcrypt": "^3.0.8",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "morgan": "^1.9.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "mysql2": "^2.0.2",
-    "nunjucks": "^3.2.0",
-    "passport": "^0.4.0",
+    "mysql2": "^2.1.0",
+    "nunjucks": "^3.2.1",
+    "passport": "^0.4.1",
     "passport-kakao": "1.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.21.3",
+    "sequelize": "^5.21.13",
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
-    "nodemon": "^2.0.2",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }
 }
