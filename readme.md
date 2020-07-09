@@ -1,13 +1,13 @@
 조현영 지음 길벗출판사 664쪽 32000원
 
+개정판 소스코드입니다. 초판 소스코드는 old 브랜치에 있습니다.
+
 인프런에서 오신 분들은 ch14가 ch9보다 먼저 나온다는 것을 알아두시면 됩니다.
 
 소스 코드를 받으신 후에는 터미널에서 코드의 루트경로(package.json이 있는)로 이동하신 후 npm i를 입력해서 node_modules를 설치하셔야 합니다. node_modules는 이 소스 코드에 포함되어 있지 않습니다.
 
-코드에 오타&오류가 있거나 개선점이 있다면 적극 Pull Request 보내주시면 됩니다!
+코드에 오타&오류가 있거나 개선점이 있다면 적극적으로 issue 제기나 Pull Request 보내주시면 됩니다!
 
-**MySQL은 5.7버전을 설치하시고(8버전을 설치하면 legacy authentication 속성을 활성화해야 합니다)**
-**Sequelize는 4버전을 설치하셔야(npm i sequelize@4) find 관련 에러가 안 납니다.** 
 
 ![소개](http://image.aladin.co.kr/img/img_content/K422533335_01.jpg)
 
