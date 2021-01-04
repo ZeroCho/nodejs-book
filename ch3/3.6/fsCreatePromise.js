@@ -18,7 +18,7 @@ fs.access('./folder', constants.F_OK | constants.W_OK | constants.R_OK)
   })
   .then((fd) => {
     console.log('빈 파일 만들기 성공', fd);
-    fs.rename('./folder/file.js', './folder/newfile.js');
+    return fs.rename('./folder/file.js', './folder/newfile.js');
   })
   .then(() => {
     console.log('이름 바꾸기 성공');
