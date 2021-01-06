@@ -13,7 +13,7 @@ const parseCookies = (cookie = '') =>
     }, {});
 
 http.createServer(async (req, res) => {
-  const cookies = parseCookies(req.headers.cookie);
+  const cookies = parseCookies(req.headers.cookie); // { mycookie: 'test' }
   // 주소가 /login으로 시작하는 경우
   if (req.url.startsWith('/login')) {
     const { query } = url.parse(req.url);

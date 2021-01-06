@@ -12,11 +12,11 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
-    "nunjucks": "^3.2.1",
-    "sequelize": "^5.21.7",
-    "sequelize-cli": "^5.5.1"
+    "nunjucks": "^3.2.2",
+    "sequelize": "^6.3.4",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.4"
   }
 }
