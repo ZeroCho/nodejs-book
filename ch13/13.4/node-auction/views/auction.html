@@ -33,7 +33,6 @@
   <script>
     document.querySelector('#bid-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const xhr = new XMLHttpRequest();
       const errorMessage = document.querySelector('.error-message');
       axios.post('/good/{{good.id}}/bid', { // 입찰 진행
         bid: e.target.bid.value,
