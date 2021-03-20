@@ -46,8 +46,9 @@ router.get('/room/:id', async (req, res, next) => {
     if (room.password && room.password !== req.query.password) {
       return res.redirect('/?error=비밀번호가 틀렸습니다.');
     }
-    const { rooms } = io.of('/chat').adapter;
-    if (rooms && rooms[req.params.id] && room.max <= rooms[req.params.id].length) {
+    const currentRoom = io.of('/chat').adapter.rooms.get(req.params.id);
+    const userCount = currentRoom ? currentRoom.size : 0;
+    if (room.max <= userCount) {
       return res.redirect('/?error=허용 인원이 초과하였습니다.');
     }
     const chats = await Chat.find({ room: room._id }).sort('createdAt');

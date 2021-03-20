@@ -9,10 +9,9 @@ module.exports = (server, app, sessionMiddleware) => {
   const room = io.of('/room');
   const chat = io.of('/chat');
 
-  io.use((socket, next) => {
-    cookieParser(process.env.COOKIE_SECRET)(socket.request, socket.request.res, next);
-    sessionMiddleware(socket.request, socket.request.res, next);
-  });
+  const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+  chat.use(wrap(cookieParser(process.env.COOKIE_SECRET)));
+  chat.use(wrap(sessionMiddleware));
 
   room.on('connection', (socket) => {
     console.log('room 네임스페이스에 접속');
