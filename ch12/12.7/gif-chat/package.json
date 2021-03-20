@@ -9,20 +9,20 @@
   "author": "Zero Cho",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "color-hash": "^1.0.3",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongoose": "^5.9.19",
+    "mongoose": "^5.11.10",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "nunjucks": "^3.2.1",
-    "socket.io": "^2.3.0",
-    "ws": "^7.3.0"
+    "nunjucks": "^3.2.2",
+    "socket.io": "^3.0.5",
+    "ws": "^7.4.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.6"
   }
 }
