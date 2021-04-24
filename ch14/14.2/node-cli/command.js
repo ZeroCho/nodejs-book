@@ -96,8 +96,8 @@ program
   });
 
 program
-  .action((cmd, args) => {
-    if (args) {
+  .action((options, cmd) => {
+    if (cmd.args.length) {
       console.log(chalk.bold.red('해당 명령어를 찾을 수 없습니다.'));
       program.help();
     } else {
