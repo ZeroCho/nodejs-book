@@ -30,7 +30,7 @@
     "passport-kakao": "1.0.0",
     "passport-local": "^1.0.0",
     "pm2": "^4.2.3",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "sequelize": "^5.21.3",
     "sequelize-cli": "^5.5.1",
     "winston": "^3.2.1"
