@@ -4,13 +4,3 @@
   <input type="text" name="title" />
   <button type="submit">업로드</button>
 </form>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-  document.getElementById('form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('image', e.target.image.files[0])
-    formData.append('title', e.target.title.value)
-    axios.post('/upload', formData);
-  });
-</script>
