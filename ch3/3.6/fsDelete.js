@@ -5,7 +5,7 @@ fs.readdir('./folder', (err, dir) => {
     throw err;
   }
   console.log('폴더 내용 확인', dir);
-  fs.unlink('./folder/newFile.js', (err) => {
+  fs.unlink('./folder/newfile.js', (err) => {
     if (err) {
       throw err;
     }
