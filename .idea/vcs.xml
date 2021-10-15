@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ch15/15.2/nodebird" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ch16/16.3/aws-upload" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ch16/16.5/gcp-upload" vcs="Git" />
   </component>
 </project>

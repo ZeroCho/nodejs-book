@@ -7,7 +7,7 @@ module.exports = (server) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     console.log('새로운 클라이언트 접속', ip);
     ws.on('message', (message) => { // 클라이언트로부터 메시지
-      console.log(message);
+      console.log(message.toString());
     });
     ws.on('error', (error) => { // 에러 시
       console.error(error);
