@@ -47,7 +47,7 @@ describe('POST /login', () => {
 });
 
 describe('POST /login', () => {
-  test('가입되지 않은 회원', async (done) => {
+  test('가입되지 않은 회원', (done) => {
     const message = encodeURIComponent('가입되지 않은 회원입니다.');
     request(app)
       .post('/auth/login')
@@ -59,7 +59,7 @@ describe('POST /login', () => {
       .expect(302, done);
   });
 
-  test('로그인 수행', async (done) => {
+  test('로그인 수행', (done) => {
     request(app)
       .post('/auth/login')
       .send({
@@ -70,7 +70,7 @@ describe('POST /login', () => {
       .expect(302, done);
   });
 
-  test('비밀번호 틀림', async (done) => {
+  test('비밀번호 틀림', (done) => {
     const message = encodeURIComponent('비밀번호가 일치하지 않습니다.');
     request(app)
       .post('/auth/login')
@@ -84,7 +84,7 @@ describe('POST /login', () => {
 });
 
 describe('GET /logout', () => {
-  test('로그인 되어있지 않으면 403', async (done) => {
+  test('로그인 되어있지 않으면 403', (done) => {
     request(app)
       .get('/auth/logout')
       .expect(403, done);
@@ -101,7 +101,7 @@ describe('GET /logout', () => {
       .end(done);
   });
 
-  test('로그아웃 수행', async (done) => {
+  test('로그아웃 수행', (done) => {
     agent
       .get('/auth/logout')
       .expect('Location', `/`)
