@@ -1,7 +1,7 @@
 try {
   Promise.reject('에러');
 } catch (e) {
-  console.error(e); // UnhandledPromiseRejection: This error originated either by throwing inside
+  console.error(e); // UnhandledPromiseRejection: This error originated either by throwing inside...
 }
 
 Promise.reject('에러').catch(() => {
