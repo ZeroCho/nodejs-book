@@ -1,4 +1,4 @@
-import { odd, even } from './var';
+import { odd, even } from './var.mjs';
 
 function checkOddOrEven(num) {
   if (num % 2) { // 홀수면

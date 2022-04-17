@@ -24,7 +24,7 @@ if (isMainThread) {
   const max = 10000000;
   const threadCount = 8;
   const threads = new Set();
-  const range = Math.ceil((max - min) / threadCount);
+  const range = Math.floor((max - min) / threadCount);
   let start = min;
   console.time('prime');
   for (let i = 0; i < threadCount - 1; i++) {
@@ -32,7 +32,7 @@ if (isMainThread) {
     threads.add(new Worker(__filename, { workerData: { start: wStart, range } }));
     start += range;
   }
-  threads.add(new Worker(__filename, { workerData: { start, range: range + ((max - min + 1) % threadCount) } }));
+  threads.add(new Worker(__filename, { workerData: { start, range: max - start } }));
   for (let worker of threads) {
     worker.on('error', (err) => {
       throw err;
