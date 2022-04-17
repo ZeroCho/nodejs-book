@@ -9,13 +9,12 @@
   "author": "ZeroCho",
   "license": "ISC",
   "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
-    "rimraf": "^3.0.2"
+    "nodemon": "^2.0.15"
   }
 }

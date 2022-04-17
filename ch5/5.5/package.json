@@ -1,5 +1,5 @@
 {
-  "name": "npmtest-3046",
+  "name": "npmtest-3068",
   "version": "0.0.1",
   "description": "hello package.json",
   "main": "index.js",
@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ZeroCho",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "release-it": "^14.14.2"
+  }
 }
