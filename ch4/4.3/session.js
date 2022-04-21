@@ -1,7 +1,6 @@
 const http = require('http');
 const fs = require('fs').promises;
-const url = require('url');
-const qs = require('querystring');
+const path = require('path');
 
 const parseCookies = (cookie = '') =>
   cookie
@@ -17,8 +16,8 @@ const session = {};
 http.createServer(async (req, res) => {
   const cookies = parseCookies(req.headers.cookie);
   if (req.url.startsWith('/login')) {
-    const { query } = url.parse(req.url);
-    const { name } = qs.parse(query);
+    const url = new URL(req.url, 'http://localhost:8085');
+    const name = url.searchParams.get('name');
     const expires = new Date();
     expires.setMinutes(expires.getMinutes() + 5);
     const uniqueInt = Date.now();
@@ -37,7 +36,7 @@ http.createServer(async (req, res) => {
     res.end(`${session[cookies.session].name}님 안녕하세요`);
   } else {
     try {
-      const data = await fs.readFile('./cookie2.html');
+      const data = await fs.readFile(path.join(__dirname, 'cookie2.html'));
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(data);
     } catch (err) {
