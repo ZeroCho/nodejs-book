@@ -27,4 +27,3 @@ module.exports = class Comment extends Sequelize.Model {
     db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
   }
 };
-

@@ -9,14 +9,14 @@
   "author": "ZeroCho",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "morgan": "^1.10.0",
-    "mysql2": "^2.1.0",
-    "nunjucks": "^3.2.2",
-    "sequelize": "^6.3.4",
-    "sequelize-cli": "^6.2.0"
+    "mysql2": "^2.3.3",
+    "nunjucks": "^3.2.3",
+    "sequelize": "^6.19.0",
+    "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.15"
   }
 }
