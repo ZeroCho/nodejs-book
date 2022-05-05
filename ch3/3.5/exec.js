@@ -1,7 +1,6 @@
 const exec = require('child_process').exec;
 
-
-var process = exec('dir');
+const process = exec('dir');
 
 process.stdout.on('data', function(data) {
   console.log(data.toString());

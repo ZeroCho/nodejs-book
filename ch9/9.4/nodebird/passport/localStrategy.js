@@ -8,6 +8,7 @@ module.exports = () => {
   passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
+    passReqToCallback: false,
   }, async (email, password, done) => {
     try {
       const exUser = await User.findOne({ where: { email } });
