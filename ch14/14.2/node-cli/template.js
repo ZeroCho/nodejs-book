@@ -84,7 +84,7 @@ const makeTemplate = () => { // 템플릿 생성 함수
 };
 
 const dirAnswer = (answer) => { // 경로 설정
-  directory = (answer && answer.trim()) || '.';
+  directory = answer?.trim() || '.';
   rl.close();
   makeTemplate();
 };
