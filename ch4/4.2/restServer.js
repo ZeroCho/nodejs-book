@@ -40,7 +40,7 @@ http.createServer(async (req, res) => {
           const id = Date.now();
           users[id] = name;
           res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
-          res.end('ok');
+          res.end('등록 성공');
         });
       }
     } else if (req.method === 'PUT') {
@@ -54,7 +54,7 @@ http.createServer(async (req, res) => {
           console.log('PUT 본문(Body):', body);
           users[key] = JSON.parse(body).name;
           res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-          return res.end('ok');
+          return res.end(JSON.stringify(users));
         });
       }
     } else if (req.method === 'DELETE') {
@@ -62,7 +62,7 @@ http.createServer(async (req, res) => {
         const key = req.url.split('/')[2];
         delete users[key];
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-        return res.end('ok');
+        return res.end(JSON.stringify(users));
       }
     }
     res.writeHead(404);
