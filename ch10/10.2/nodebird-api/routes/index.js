@@ -1,5 +1,4 @@
 const express = require('express');
-
 const { renderLogin, createDomain } = require('../controllers');
 const { isLoggedIn } = require('../middlewares');
 
