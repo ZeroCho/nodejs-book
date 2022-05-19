@@ -31,11 +31,9 @@ describe('follow', () => {
   });
 
   test('DB에서 에러가 발생하면 next(error) 호출함', async () => {
-    User.findOne.mockReturnValue(Promise.reject(error));
-    try {
-      await follow(req, res, next);
-    } catch (error) {
-      expect(next).toBeCalledWith(error);
-    }
+    const message = 'DB에러';
+    User.findOne.mockReturnValue(Promise.reject(message));
+    await follow(req, res, next);
+    expect(next).toBeCalledWith(message);
   });
 });

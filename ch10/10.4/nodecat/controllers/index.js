@@ -19,7 +19,7 @@ exports.test = async (req, res, next) => { // 토큰 테스트 라우터
     return res.json(result.data);
   } catch (error) {
     console.error(error);
-    if (error.response.status === 419) { // 토큰 만료 시
+    if (error.response?.status === 419) { // 토큰 만료 시
       return res.json(error.response.data);
     }
     return next(error);
