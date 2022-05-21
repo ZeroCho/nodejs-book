@@ -1,7 +1,7 @@
 {
   "name": "nodecat",
   "version": "0.0.1",
-  "description": "노드버드 2차 서비스",
+  "description": "NodeBird 2차 서비스",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
