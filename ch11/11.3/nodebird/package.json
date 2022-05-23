@@ -15,12 +15,12 @@
     "cookie-parser": "^1.4.3",
     "dotenv": "^16.0.0",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
+    "express-session": "^1.17.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "mysql2": "^2.0.2",
     "nunjucks": "^3.2.0",
-    "passport": "^0.5.2",
+    "passport": "^0.6.0",
     "passport-kakao": "^1.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.0.0",
@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "jest": "^28.1.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.16"
   }
 }
