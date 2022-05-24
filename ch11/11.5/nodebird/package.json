@@ -20,7 +20,7 @@
     "multer": "^1.4.2",
     "mysql2": "^2.0.2",
     "nunjucks": "^3.2.0",
-    "passport": "^0.5.2",
+    "passport": "^0.6.0",
     "passport-kakao": "^1.0.0",
     "passport-local": "^1.0.0",
     "pm2": "^5.2.0",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "artillery": "^2.0.0-16",
     "jest": "^28.1.0",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.16",
     "supertest": "^6.2.3"
   }
 }
