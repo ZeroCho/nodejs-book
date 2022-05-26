@@ -1,4 +1,4 @@
-const { Good, Auction, User } = require('../models');
+const { Good, Auction, User, sequelize } = require('../models');
 const schedule = require('node-schedule');
 
 exports.renderMain = async (req, res, next) => {
@@ -35,7 +35,7 @@ exports.createGood = async (req, res, next) => {
     });
     const end = new Date();
     end.setDate(end.getDate() + 1); // 하루 뒤
-    schedule.scheduleJob(end, async () => {
+    const job = schedule.scheduleJob(end, async () => {
       const success = await Auction.findOne({
         where: { GoodId: good.id },
         order: [['bid', 'DESC']],
@@ -46,6 +46,12 @@ exports.createGood = async (req, res, next) => {
       }, {
         where: { id: success.UserId },
       });
+    });
+    job.on('error', (err) => {
+      console.error('스케줄링 에러', err);
+    });
+    job.on('success', () => {
+      console.log('스케줄링 성공');
     });
     res.redirect('/');
   } catch (error) {
@@ -95,7 +101,7 @@ exports.bid = async (req, res, next) => {
     if (new Date(good.createdAt).valueOf() + (24 * 60 * 60 * 1000) < new Date()) {
       return res.status(403).send('경매가 이미 종료되었습니다');
     }
-    if (good.Auctions?.bid >= bid) {
+    if (good.Auctions[0]?.bid >= bid) {
       return res.status(403).send('이전 입찰가보다 높아야 합니다');
     }
     const result = await Auction.create({
