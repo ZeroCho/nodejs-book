@@ -2,7 +2,11 @@ const { Good, Auction } = require('../models');
 
 exports.renderMain = async (req, res, next) => {
   try {
-    const goods = await Good.findAll({ where: { SoldId: null } });
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1); // 어제 시간
+    const goods = await Good.findAll({ 
+      where: { SoldId: null, createdAt: { [Op.gte]: yesterday } },
+    });
     res.render('main', {
       title: 'NodeAuction',
       goods,
