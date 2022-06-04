@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Good, Auction, User, sequelize } = require('../models');
 const schedule = require('node-schedule');
 

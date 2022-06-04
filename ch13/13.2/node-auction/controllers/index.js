@@ -1,4 +1,5 @@
-const { Good, Auction } = require('../models');
+const { Op } = require('sequelize');
+const { Good, Auction, User } = require('../models');
 
 exports.renderMain = async (req, res, next) => {
   try {
