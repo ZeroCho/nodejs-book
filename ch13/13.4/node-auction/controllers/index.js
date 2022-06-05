@@ -45,7 +45,7 @@ exports.createGood = async (req, res, next) => {
         where: { GoodId: good.id },
         order: [['bid', 'DESC']],
       });
-      await Good.update({ SoldId: success.UserId }, { where: { id: good.id } });
+      await good.setSold(success.UserId);
       await User.update({
         money: sequelize.literal(`money - ${success.bid}`),
       }, {
@@ -100,6 +100,9 @@ exports.bid = async (req, res, next) => {
       include: { model: Auction },
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
+    if (!good) {
+      return res.status(404).send('해당 상품은 존재하지 않습니다.');
+    }
     if (good.price >= bid) {
       return res.status(403).send('시작 가격보다 높게 입찰해야 합니다.');
     }
