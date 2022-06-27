@@ -1,0 +1,108 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+.btn {
+  display: inline-block;
+  padding: 0 5px;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid silver;
+  color: crimson;
+  height: 37px;
+  line-height: 37px;
+  vertical-align: top;
+  font-size: 12px;
+}
+input[type='text'], input[type='email'], input[type='password'], textarea {
+  border-radius: 4px;
+  height: 37px;
+  padding: 10px;
+  border: 1px solid silver;
+}
+.container { width: 100%; height: 100%; }
+@media screen and (min-width: 800px) {
+  .container { width: 800px; margin: 0 auto; }
+}
+.input-group { margin-bottom: 15px; }
+.input-group label { width: 25%; display: inline-block; }
+.input-group input { width: 70%; }
+.half { float: left; width: 50%; margin: 10px 0; }
+#join { float: right; }
+.profile-wrap {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 0;
+}
+@media screen and (min-width: 800px) {
+  .profile-wrap { width: 290px; margin-bottom: 0; }
+}
+.profile {
+  text-align: left;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid silver;
+  background: lightcoral;
+}
+.user-name { font-weight: bold; font-size: 18px; }
+.count { font-weight: bold; color: crimson; font-size: 18px; }
+.timeline {
+  margin-top: 10px;
+  width: 100%;
+  display: inline-block;
+  border-radius: 4px;
+  vertical-align: top;
+}
+@media screen and (min-width: 800px) { .timeline { width: 500px; } }
+#twit-form {
+  border-bottom: 1px solid silver;
+  padding: 10px;
+  background: lightcoral;
+  overflow: hidden;
+}
+#img-preview { max-width: 100%; }
+#img-label {
+  float: left;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid crimson;
+  padding: 0 10px;
+  color: white;
+  font-size: 12px;
+  height: 37px;
+  line-height: 37px;
+}
+#img { display: none; }
+#twit { width: 100%; min-height: 72px; }
+#twit-btn {
+  float: right;
+  color: white;
+  background: crimson;
+  border: none;
+}
+.twit {
+  border: 1px solid silver;
+  border-radius: 4px;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.twit-author { display: inline-block; font-weight: bold; margin-right: 10px; }
+.twit-follow {
+  padding: 1px 5px;
+  background: #fff;
+  border: 1px solid silver;
+  border-radius: 5px;
+  color: crimson;
+  font-size: 12px;
+  cursor: pointer;
+}
+.twit-img { text-align: center; }
+.twit-img img { max-width: 75%; }
+.error-message { color: red; font-weight: bold; }
+#search-form { text-align: right; }
+#join-form { padding: 10px; text-align: center; }
+#hashtag-form { text-align: right; }
+footer { text-align: center; }
