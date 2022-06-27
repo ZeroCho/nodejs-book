@@ -1,8 +1,13 @@
-const { Good, Auction } = require('../models');
+const { Op } = require('sequelize');
+const { Good, Auction, User } = require('../models');
 
 exports.renderMain = async (req, res, next) => {
   try {
-    const goods = await Good.findAll({ where: { SoldId: null } });
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1); // 어제 시간
+    const goods = await Good.findAll({ 
+      where: { SoldId: null, createdAt: { [Op.gte]: yesterday } },
+    });
     res.render('main', {
       title: 'NodeAuction',
       goods,
@@ -74,6 +79,9 @@ exports.bid = async (req, res, next) => {
       include: { model: Auction },
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
+    if (!good) {
+      return res.status(404).send('해당 상품은 존재하지 않습니다.');
+    }
     if (good.price >= bid) {
       return res.status(403).send('시작 가격보다 높게 입찰해야 합니다.');
     }

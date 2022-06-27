@@ -6,6 +6,6 @@
   "author": "ZeroCho",
   "license": "ISC",
   "bin": {
-    "ncli": "./template.js"
+    "cli": "./template.js"
   }
 }

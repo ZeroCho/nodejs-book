@@ -70,7 +70,7 @@ describe('POST /login', () => {
       .expect(302, done);
   });
 
-  test('비밀번호 틀림',  (done) => {
+  test('비밀번호 틀림', (done) => {
     const message = encodeURIComponent('비밀번호가 일치하지 않습니다.');
     request(app)
       .post('/auth/login')

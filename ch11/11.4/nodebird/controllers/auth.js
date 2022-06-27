@@ -42,7 +42,9 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res) => {
+  console.log('로그아웃', req);
   req.logout(() => {
+    console.log('로그아웃2');
     res.redirect('/');
   });
 };

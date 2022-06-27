@@ -32,7 +32,7 @@ module.exports = (server, app, sessionMiddleware) => {
       console.log('chat 네임스페이스 접속 해제');
       const { referer } = socket.request.headers; // 브라우저 주소가 들어있음
       const roomId = new URL(referer).pathname.split('/').at(-1);
-      const currentRoom = io.of('/chat').adapter.rooms.get(roomId);
+      const currentRoom = chat.adapter.rooms.get(roomId);
       const userCount = currentRoom?.size || 0;
       if (userCount === 0) { // 유저가 0명이면 방 삭제
         await removeRoom(roomId); // 컨트롤러 대신 서비스를 사용
