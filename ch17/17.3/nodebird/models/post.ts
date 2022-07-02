@@ -1,5 +1,5 @@
 import Sequelize, {Model} from 'sequelize';
-import User from './user';
+import User from "./user";
 import Hashtag from "./hashtag";
 
 class Post extends Model {
@@ -8,11 +8,6 @@ class Post extends Model {
   img?: string;
   createdAt?: Date;
   updatedAt?: Date;
-
-  static associate() {
-    Post.belongsTo(User);
-    Post.belongsToMany(Hashtag, {through: 'PostHashtag'});
-  }
 
   static initiate(sequelize: Sequelize.Sequelize) {
     Post.init({
@@ -34,6 +29,11 @@ class Post extends Model {
       charset: 'utf8mb4',
       collate: 'utf8mb4_general_ci',
     });
+  }
+
+  static associate() {
+    Post.belongsTo(User);
+    Post.belongsToMany(Hashtag, { through: 'PostHashtag' });
   }
 }
 

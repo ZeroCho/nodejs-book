@@ -7,10 +7,6 @@ class Hashtag extends Model {
   createdAt?: Date;
   updatedAt?: Date;
 
-  static associate() {
-    Hashtag.belongsToMany(Post, {through: 'PostHashtag'});
-  }
-
   static initiate(sequelize: Sequelize.Sequelize) {
     Hashtag.init({
       title: {
@@ -28,6 +24,10 @@ class Hashtag extends Model {
       charset: 'utf8mb4',
       collate: 'utf8mb4_general_ci',
     });
+  }
+
+  static associate() {
+    Hashtag.belongsToMany(Post, {through: 'PostHashtag'});
   }
 }
 

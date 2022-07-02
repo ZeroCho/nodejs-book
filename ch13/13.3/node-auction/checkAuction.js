@@ -14,16 +14,24 @@ module.exports = async () => {
       },
     });
     targets.forEach(async (good) => {
-      const success = await Auction.findOne({
-        where: { GoodId: good.id },
-        order: [['bid', 'DESC']],
-      });
-      await good.setSold(success.UserId);
-      await User.update({
-        money: sequelize.literal(`money - ${success.bid}`),
-      }, {
-        where: { id: success.UserId },
-      });
+      const t = await sequelize.transaction();
+      try {
+        const success = await Auction.findOne({
+          where: { GoodId: good.id },
+          order: [['bid', 'DESC']],
+          transaction: t,
+        });
+        await good.setSold(success.UserId, { transaction: t });
+        await User.update({
+          money: sequelize.literal(`money - ${success.bid}`),
+        }, {
+          where: { id: success.UserId },
+          transaction: t,
+        });
+        await t.commit();
+      } catch (error) {
+        await t.rollback();
+      }
     });
     const ongoing = await Good.findAll({ // 24시간이 지나지 않은 낙찰자 없는 경매들
       where: {
@@ -35,6 +43,7 @@ module.exports = async () => {
       const end = new Date(good.createdAt);
       end.setDate(end.getDate() + 1); // 생성일 24시간 뒤가 낙찰 시간
       const job = scheduleJob(end, async() => {
+        const t = await sequelize.transaction();
         const success = await Auction.findOne({
           where: { GoodId: good.id },
           order: [['bid', 'DESC']],

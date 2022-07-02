@@ -1,4 +1,4 @@
-import express, {ErrorRequestHandler} from 'express';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
@@ -7,6 +7,7 @@ import nunjucks from 'nunjucks';
 import dotenv from 'dotenv';
 import passport from 'passport';
 
+dotenv.config();
 import pageRouter from './routes/page';
 import authRouter from './routes/auth';
 import postRouter from './routes/post';
@@ -14,7 +15,6 @@ import userRouter from './routes/user';
 import { sequelize } from './models';
 import passportConfig from './passport';
 
-dotenv.config();
 const app = express();
 passportConfig(); // 패스포트 설정
 app.set('port', process.env.PORT || 8001);
@@ -61,7 +61,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
   console.error(err);
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};

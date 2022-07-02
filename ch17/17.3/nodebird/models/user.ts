@@ -11,25 +11,7 @@ class User extends Model {
   createdAt?: Date;
   updatedAt?: Date;
 
-  Followers?: User[];
-  Followings?: User[];
-
-  static associate() {
-    User.hasMany(Post);
-    User.belongsToMany(User, {
-      foreignKey: 'followingId',
-      as: 'Followers',
-      through: 'Follow',
-    });
-    User.belongsToMany(User, {
-      foreignKey: 'followerId',
-      as: 'Followings',
-      through: 'Follow',
-    });
-  }
-
   static initiate(sequelize: Sequelize.Sequelize) {
-
     User.init({
       email: {
         type: Sequelize.STRING(40),
@@ -62,6 +44,20 @@ class User extends Model {
       paranoid: true,
       charset: 'utf8',
       collate: 'utf8_general_ci',
+    });
+  }
+  
+  static associate() {
+    User.hasMany(Post);
+    User.belongsToMany(User, {
+      foreignKey: 'followingId',
+      as: 'Followers',
+      through: 'Follow',
+    });
+    User.belongsToMany(User, {
+      foreignKey: 'followerId',
+      as: 'Followings',
+      through: 'Follow',
     });
   }
 }
