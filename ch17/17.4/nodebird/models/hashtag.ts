@@ -25,7 +25,7 @@ class Hashtag extends Model {
       collate: 'utf8mb4_general_ci',
     });
   }
-  
+
   static associate() {
     Hashtag.belongsToMany(Post, {through: 'PostHashtag'});
   }

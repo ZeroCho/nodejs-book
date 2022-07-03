@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-module.exports = class User extends Sequelize.Model {
-  static init(sequelize) {
-    return super.init({
+class User extends Sequelize.Model {
+  static initiate(sequelize) {
+    User.init({
       name: {
         type: Sequelize.STRING(20),
         allowNull: false,
@@ -41,3 +41,5 @@ module.exports = class User extends Sequelize.Model {
     db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
   }
 };
+
+module.exports = User;

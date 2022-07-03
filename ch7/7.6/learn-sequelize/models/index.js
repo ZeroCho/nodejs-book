@@ -13,8 +13,8 @@ db.sequelize = sequelize;
 db.User = User;
 db.Comment = Comment;
 
-User.init(sequelize);
-Comment.init(sequelize);
+User.initiate(sequelize);
+Comment.initiate(sequelize);
 
 User.associate(db);
 Comment.associate(db);

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Auction extends Sequelize.Model {
-  static init(sequelize) {
-    return super.init({
+class Auction extends Sequelize.Model {
+  static initiate(sequelize) {
+    Auction.init({
       bid: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -28,3 +28,5 @@ module.exports = class Auction extends Sequelize.Model {
     db.Auction.belongsTo(db.Good);
   }
 };
+
+module.exports = Auction;

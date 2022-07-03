@@ -1,8 +1,18 @@
-const Sequelize = require('sequelize');
+import Sequelize, {Model} from 'sequelize';
+import Post from './post';
 
-module.exports = class User extends Sequelize.Model {
-  static init(sequelize) {
-    return super.init({
+class User extends Model {
+  id?: number;
+  email?: string;
+  nick?: string;
+  password?: string;
+  provider?: string;
+  snsId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+
+  static initiate(sequelize: Sequelize.Sequelize) {
+    User.init({
       email: {
         type: Sequelize.STRING(40),
         allowNull: true,
@@ -36,18 +46,20 @@ module.exports = class User extends Sequelize.Model {
       collate: 'utf8_general_ci',
     });
   }
-
-  static associate(db) {
-    db.User.hasMany(db.Post);
-    db.User.belongsToMany(db.User, {
+  
+  static associate() {
+    User.hasMany(Post);
+    User.belongsToMany(User, {
       foreignKey: 'followingId',
       as: 'Followers',
       through: 'Follow',
     });
-    db.User.belongsToMany(db.User, {
+    User.belongsToMany(User, {
       foreignKey: 'followerId',
       as: 'Followings',
       through: 'Follow',
     });
   }
-};
+}
+
+export default User;

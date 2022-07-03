@@ -21,7 +21,7 @@ fs
     const model = require(path.join(__dirname, file));
     console.log(file, model.name);
     db[model.name] = model;
-    model.init(sequelize);
+    model.initiate(sequelize);
   });
 
 Object.keys(db).forEach(modelName => { // associate 호출

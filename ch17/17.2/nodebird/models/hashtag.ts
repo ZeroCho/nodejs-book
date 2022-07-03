@@ -1,7 +1,13 @@
-const Sequelize = require('sequelize');
+import Sequelize, { Model } from 'sequelize';
+import Post from "./post";
 
-class Hashtag extends Sequelize.Model {
-  static initiate(sequelize) {
+class Hashtag extends Model {
+  id?: number;
+  title?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+
+  static initiate(sequelize: Sequelize.Sequelize) {
     Hashtag.init({
       title: {
         type: Sequelize.STRING(15),
@@ -20,9 +26,10 @@ class Hashtag extends Sequelize.Model {
     });
   }
 
-  static associate(db) {
-    db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });
+  static associate() {
+    Hashtag.belongsToMany(Post, { through: 'PostHashtag' });
   }
-};
+}
 
-module.exports = Hashtag;
+export default Hashtag;
+

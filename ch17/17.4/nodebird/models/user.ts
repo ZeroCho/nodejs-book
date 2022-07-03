@@ -11,9 +11,6 @@ class User extends Model {
   createdAt?: Date;
   updatedAt?: Date;
 
-  Followers?: User[];
-  Followings?: User[];
-
   static initiate(sequelize: Sequelize.Sequelize) {
     User.init({
       email: {

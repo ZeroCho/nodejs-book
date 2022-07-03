@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Good extends Sequelize.Model {
-  static init(sequelize) {
-    return super.init({
+class Good extends Sequelize.Model {
+  static initiate(sequelize) {
+    Good.init({
       name: {
         type: Sequelize.STRING(40),
         allowNull: false,
@@ -33,3 +33,5 @@ module.exports = class Good extends Sequelize.Model {
     db.Good.hasMany(db.Auction);
   }
 };
+
+module.exports = Good;
