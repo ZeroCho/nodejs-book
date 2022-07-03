@@ -1,6 +1,5 @@
-import {RequestHandler} from "express";
-
-const User = require('../models/user');
+import { RequestHandler } from 'express';
+import User from '../models/user';
 
 const follow: RequestHandler = async (req, res, next) => {
   try {

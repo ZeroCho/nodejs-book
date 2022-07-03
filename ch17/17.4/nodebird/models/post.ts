@@ -9,6 +9,8 @@ class Post extends Model {
   createdAt?: Date;
   updatedAt?: Date;
 
+  declare add
+
   static initiate(sequelize: Sequelize.Sequelize) {
     Post.init({
       content: {

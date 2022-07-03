@@ -1,4 +1,4 @@
-import {RequestHandler} from "express";
+import { RequestHandler } from 'express';
 
 const isLoggedIn: RequestHandler = (req, res, next) => {
   if (req.isAuthenticated()) {

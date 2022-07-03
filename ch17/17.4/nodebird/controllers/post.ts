@@ -1,6 +1,6 @@
-import {RequestHandler} from "express";
-
-const { Post, Hashtag } = require('../models');
+import { RequestHandler } from 'express';
+import Post from '../models/post';
+import Hashtag from '../models/hashtag';
 
 const afterUploadImage: RequestHandler = (req, res) => {
   console.log(req.file);

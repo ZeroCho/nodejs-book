@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import User from '../models/user';
-import {RequestHandler} from "express";
+import { RequestHandler } from 'express';
 
 const join: RequestHandler = async (req, res, next) => {
   const { email, nick, password } = req.body;
@@ -48,4 +48,4 @@ const logout: RequestHandler = (req, res) => {
   });
 };
 
-export { login, join, logout }
+export { login, join, logout };

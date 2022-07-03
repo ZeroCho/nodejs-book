@@ -1,6 +1,7 @@
-import {RequestHandler} from "express";
-
-const { User, Post, Hashtag } = require('../models');
+import { RequestHandler } from 'express';
+import User from '../models/user';
+import Post from '../models/post';
+import Hashtag from '../models/hashtag';
 
 const renderProfile: RequestHandler = (req, res) => {
   res.render('profile', { title: '내 정보 - NodeBird' });
@@ -36,7 +37,7 @@ const renderHashtag: RequestHandler = async (req, res, next) => {
   }
   try {
     const hashtag = await Hashtag.findOne({ where: { title: query } });
-    let posts = [];
+    let posts: Post[] = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });
     }
