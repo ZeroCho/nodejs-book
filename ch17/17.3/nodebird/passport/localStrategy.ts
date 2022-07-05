@@ -11,7 +11,7 @@ export default () => {
     try {
       const exUser = await User.findOne({ where: { email } });
       if (exUser) {
-        const result = await bcrypt.compare(password, exUser.password!);
+        const result = await bcrypt.compare(password, exUser.password);
         if (result) {
           done(null, exUser);
         } else {

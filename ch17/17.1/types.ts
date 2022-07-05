@@ -16,4 +16,12 @@ type Type = {
 }
 const c: Type = { hello: 'type' };
 
+interface Merge {
+  x: number,
+}
+interface Merge {
+  y: number,
+}
+const m: Merge = { x: 1, y: 2 };
+
 export { a }; // 타입스크립트 ECMAScript 모듈을 사용

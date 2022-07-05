@@ -31,7 +31,7 @@ const renderMain: RequestHandler = async (req, res, next) => {
 }
 
 const renderHashtag: RequestHandler = async (req, res, next) => {
-  const query = req.query.hashtag;
+  const query = req.query.hashtag as string;
   if (!query) {
     return res.redirect('/');
   }

@@ -1,4 +1,4 @@
-import express, {ErrorRequestHandler} from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
