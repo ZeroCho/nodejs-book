@@ -18,3 +18,5 @@ Hashtag.initiate(sequelize);
 User.associate();
 Post.associate();
 Hashtag.associate();
+
+export { User, Post, Hashtag };

@@ -37,7 +37,7 @@ const login: RequestHandler = (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/?머임');
+      return res.redirect('/');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 };
