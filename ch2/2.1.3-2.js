@@ -1,3 +1,7 @@
+let sayNode = function(){
+  console.log('Node');
+}
+let es = 'ES'
 const newObject = {
   sayJS() {
     console.log('JS');

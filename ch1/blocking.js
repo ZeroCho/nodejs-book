@@ -1,5 +1,5 @@
 function longRunningTask() {
-  // 오래 걸리는 작업
+  // 오래 걸리는 작업 test
   console.log('작업 끝');
 }
 console.log('시작');
