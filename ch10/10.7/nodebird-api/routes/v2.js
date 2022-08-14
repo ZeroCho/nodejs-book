@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { verifyToken, apiLimiter, corsWhenDomainMatches } = require('../middlewares');
-const { createToken, tokenTest, getMyPosts, getPostsByHashtag } = require('../controllers/v1');
+const { createToken, tokenTest, getMyPosts, getPostsByHashtag } = require('../controllers/v2');
 
 const router = express.Router();
 
