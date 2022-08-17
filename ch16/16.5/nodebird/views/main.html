@@ -30,18 +30,12 @@
             <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
             <input type="hidden" value="{{twit.id}}" class="twit-id">
             <div class="twit-author">{{twit.User.nick}}</div>
-            {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
+            {% if not followingIdList.includes(twit.User.id) and twit.User.id !== user.id %}
               <button class="twit-follow">팔로우하기</button>
             {% endif %}
             <div class="twit-content">{{twit.content}}</div>
             {% if twit.img %}
-              <div class="twit-img">
-                <img
-                  src="{{twit.img}}"
-                  onerror="this.src = this.src.replace(/\/thumb\//, '/original/');"
-                  alt="섬네일"
-                />
-              </div>
+              <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
             {% endif %}
           </div>
         {% endfor %}
@@ -54,11 +48,12 @@
     if (document.getElementById('img')) {
       document.getElementById('img').addEventListener('change', function(e) {
         const formData = new FormData();
+        console.log(this, this.files);
         formData.append('img', this.files[0]);
         axios.post('/post/img', formData)
           .then((res) => {
             document.getElementById('img-url').value = res.data.url;
-            document.getElementById('img-preview').src = res.data.originalUrl;
+            document.getElementById('img-preview').src = res.data.url;
             document.getElementById('img-preview').style.display = 'inline';
           })
           .catch((err) => {
