@@ -42,6 +42,7 @@ sequelize.sync({ force: false })
   });
 
 if (process.env.NODE_ENV === 'production') {
+  app.enable('trust proxy');
   app.use(morgan('combined'));
   app.use(
     helmet({
@@ -67,7 +68,7 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  store: new RedisStore({ client: redisClient }),
+  // store: new RedisStore({ client: redisClient }),
 };
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true;
