@@ -2,7 +2,10 @@ const { Post, Hashtag } = require('../models');
 
 exports.afterUploadImage = (req, res) => {
   console.log(req.file);
-  res.json({ url: req.file.path });
+  const filePath = req.file.path.split('/').splice(0, 3).join('/');
+  const originalUrl = `${filePath}/${req.file.filename}`;
+  const url = originalUrl.replace(/\/original\//, '/thumb/');
+  res.json({ url, originalUrl });
 };
 
 exports.uploadPost = async (req, res, next) => {

@@ -20,6 +20,9 @@ const upload = multer({
     bucket: 'nodebird3',
     projectId: 'node-deploy-358509',
     keyFilename: 'node-deploy-358509-a2917cd5849c.json',
+    filename: (req, file, cb) => {
+      cb(null, `original/${Date.now()}_${file.originalname}`);
+    },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
