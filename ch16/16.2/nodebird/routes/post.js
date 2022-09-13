@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const AWS = require('aws-sdk');
+const { S3Client } = require('@aws-sdk/client-s3');
 const multerS3 = require('multer-s3');
 
 const { afterUploadImage, uploadPost } = require('../controllers/post');
@@ -17,14 +17,16 @@ try {
   fs.mkdirSync('uploads');
 }
 
-AWS.config.update({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  },
   region: 'ap-northeast-2',
 });
 const upload = multer({
   storage: multerS3({
-    s3: new AWS.S3(),
+    s3,
     bucket: 'nodebird03',
     key(req, file, cb) {
       cb(null, `original/${Date.now()}_${file.originalname}`);
