@@ -33,7 +33,6 @@
   <script>
     document.querySelector('#bid-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const errorMessage = document.querySelector('.error-message');
       axios.post('/good/{{good.id}}/bid', { // 입찰 진행
         bid: e.target.bid.value,
         msg: e.target.msg.value,
@@ -45,7 +44,6 @@
         .finally(() => {
           e.target.bid.value = '';
           e.target.msg.value = '';
-          errorMessage.textContent = '';
         });
     });
     const es = new EventSource("/sse");
