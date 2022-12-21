@@ -12,19 +12,19 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "nunjucks": "^3.2.1",
-    "passport": "^0.5.2",
-    "passport-kakao": "^1.0.1",
+    "passport": "^0.6.0",
+    "passport-kakao": "1.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.0.0",
+    "sequelize": "^6.19.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.16"
   }
 }

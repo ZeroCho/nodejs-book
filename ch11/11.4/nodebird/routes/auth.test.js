@@ -20,7 +20,7 @@ describe('POST /join', () => {
   });
 });
 
-describe('POST /login', () => {
+describe('POST /join', () => {
   const agent = request.agent(app);
   beforeEach((done) => {
     agent

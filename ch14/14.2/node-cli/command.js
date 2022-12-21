@@ -3,7 +3,6 @@ const { program } = require('commander');
 const fs = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 
 const htmlTemplate = `
 <!DOCTYPE html>
@@ -62,21 +61,21 @@ const makeTemplate = (type, name, directory) => {
   if (type === 'html') {
     const pathToFile = path.join(directory, `${name}.html`);
     if (exist(pathToFile)) {
-      console.error(chalk.bold.red('이미 해당 파일이 존재합니다'));
+      console.error('이미 해당 파일이 존재합니다');
     } else {
       fs.writeFileSync(pathToFile, htmlTemplate);
-      console.log(chalk.green(pathToFile, '생성 완료'));
+      console.log(pathToFile, '생성 완료');
     }
   } else if (type === 'express-router') {
     const pathToFile = path.join(directory, `${name}.js`);
     if (exist(pathToFile)) {
-      console.error(chalk.bold.red('이미 해당 파일이 존재합니다'));
+      console.error('이미 해당 파일이 존재합니다');
     } else {
       fs.writeFileSync(pathToFile, routerTemplate);
-      console.log(chalk.green(pathToFile, '생성 완료'));
+      console.log(pathToFile, '생성 완료');
     }
   } else {
-    console.error(chalk.bold.red('html 또는 express-router 둘 중 하나를 입력하세요.'));
+    console.error('html 또는 express-router 둘 중 하나를 입력하세요.');
   }
 };
 
@@ -91,14 +90,14 @@ program
   .alias('tmpl')
   .option('-f, --filename [filename]', '파일명을 입력하세요.', 'index')
   .option('-d, --directory [path]', '생성 경로를 입력하세요', '.')
-  .action((type, options) => {
+  .action((type, options, command) => {
     makeTemplate(type, options.filename, options.directory);
   });
 
 program
-  .action((cmd, args) => {
-    if (args) {
-      console.log(chalk.bold.red('해당 명령어를 찾을 수 없습니다.'));
+  .action((options, command) => {
+    if (command.args.length !== 0) {
+      console.log('해당 명령어를 찾을 수 없습니다.');
       program.help();
     } else {
       inquirer.prompt([{
@@ -124,7 +123,7 @@ program
         .then((answers) => {
           if (answers.confirm) {
             makeTemplate(answers.type, answers.name, answers.directory);
-            console.log(chalk.rgb(128, 128, 128)('터미널을 종료합니다.'));
+            console.log('터미널을 종료합니다.');
           }
         });
     }

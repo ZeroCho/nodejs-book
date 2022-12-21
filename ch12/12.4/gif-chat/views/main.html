@@ -60,11 +60,11 @@
     const button = document.createElement('button');
     button.textContent = '입장';
     button.dataset.password = data.password ? 'true' : 'false';
-    button.dataset.id = data._id;
+    button.dataset.id = data._id; // 버튼에 방 아이디 저장
     button.addEventListener('click', addBtnEvent);
     td.appendChild(button);
     tr.appendChild(td);
-    tr.dataset.id = data._id;
+    tr.dataset.id = data._id; // tr에 방 아이디 저장
     document.querySelector('table tbody').appendChild(tr); // 화면에 추가
   });
 
@@ -77,7 +77,7 @@
   });
 
   function addBtnEvent(e) { // 방 입장 클릭 시
-    if (e.target.dataset.password === 'true') {
+    if (e.target.dataset.password === 'true') { // 비밀방이면
       const password = prompt('비밀번호를 입력하세요');
       location.href = '/room/' + e.target.dataset.id + '?password=' + password;
     } else {

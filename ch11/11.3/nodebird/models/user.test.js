@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
 
 describe('User 모델', () => {
   test('static init 메서드 호출', () => {
-    expect(User.init(sequelize)).toBe(User);
+    expect(User.initiate(sequelize)).toBe(undefined);
   });
   test('static associate 메서드 호출', () => {
     const db = {

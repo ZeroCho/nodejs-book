@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
 const fs = require('fs');
 const path = require('path');
+const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
 const db = {};
@@ -21,7 +21,7 @@ fs
     const model = require(path.join(__dirname, file));
     console.log(file, model.name);
     db[model.name] = model;
-    model.init(sequelize);
+    model.initiate(sequelize);
   });
 
 Object.keys(db).forEach(modelName => { // associate 호출

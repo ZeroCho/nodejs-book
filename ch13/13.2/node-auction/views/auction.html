@@ -33,7 +33,6 @@
   <script>
     document.querySelector('#bid-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const errorMessage = document.querySelector('.error-message');
       axios.post('/good/{{good.id}}/bid', { // 입찰 진행
         bid: e.target.bid.value,
         msg: e.target.msg.value,
@@ -45,7 +44,6 @@
         .finally(() => {
           e.target.bid.value = '';
           e.target.msg.value = '';
-          errorMessage.textContent = '';
         });
     });
     const es = new EventSource("/sse");
@@ -55,13 +53,13 @@
       const server = new Date(parseInt(e.data, 10));
       end.setDate(end.getDate() + 1); // 경매 종료 시간
       if (server >= end) { // 경매가 종료되었으면
-        return time.textContent = '00:00:00';
+        time.textContent = '00:00:00';
       } else {
         const t = end - server;
         const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
         const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
         const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
-        return time.textContent = hours + ':' + minutes + ':' + seconds;
+        time.textContent = hours + ':' + minutes + ':' + seconds;
       }
     };
     const socket = io.connect('http://localhost:8010', {

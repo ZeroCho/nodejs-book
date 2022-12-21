@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-exports.addFollowing = async (req, res, next) => {
+exports.follow = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.user.id } });
     if (user) {

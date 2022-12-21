@@ -1,5 +1,5 @@
 const express = require('express');
-const { renderProfile, renderJoin, renderMain } = require('../controllers/auth');
+const { renderProfile, renderJoin, renderMain } = require('../controllers/page');
 
 const router = express.Router();
 

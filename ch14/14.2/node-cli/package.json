@@ -9,8 +9,7 @@
     "cli": "./command.js"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
-    "commander": "^5.0.0",
-    "inquirer": "^7.1.0"
+    "commander": "^9.3.0",
+    "inquirer": "^8.2.4"
   }
 }

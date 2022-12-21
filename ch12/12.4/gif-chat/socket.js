@@ -15,16 +15,13 @@ module.exports = (server, app) => {
 
   chat.on('connection', (socket) => {
     console.log('chat 네임스페이스에 접속');
-    const req = socket.request;
-    const { headers: { referer } } = req;
-    const roomId = referer
-      .split('/')[referer.split('/').length - 1]
-      .replace(/\?.+/, '');
-    socket.join(roomId);
+
+    socket.on('join', (data) => { // data는 브라우저에서 보낸 방 아이디
+      socket.join(data); // 네임스페이스 아래 존재하는 방에 접속
+    });
 
     socket.on('disconnect', () => {
       console.log('chat 네임스페이스 접속 해제');
-      socket.leave(roomId);
     });
   });
 };

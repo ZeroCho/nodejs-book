@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
-const ColorHash = require('color-hash');
+const ColorHash = require('color-hash').default;
 
 dotenv.config();
 const webSocket = require('./socket');
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   if (!req.session.color) {
     const colorHash = new ColorHash();
     req.session.color = colorHash.hex(req.sessionID);
+    console.log(req.session.color, req.sessionID);
   }
   next();
 });

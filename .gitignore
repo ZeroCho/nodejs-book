@@ -35,3 +35,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 uploads
+lecture-api
+lecture-call
+lecture
+node-deploy-*.json

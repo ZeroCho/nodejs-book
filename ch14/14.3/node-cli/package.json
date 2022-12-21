@@ -1,0 +1,16 @@
+{
+  "name": "node-cli",
+  "version": "0.0.1",
+  "description": "nodejs cli program",
+  "main": "index.js",
+  "author": "ZeroCho",
+  "license": "ISC",
+  "bin": {
+    "cli": "./command.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.3.0",
+    "inquirer": "^8.2.4"
+  }
+}

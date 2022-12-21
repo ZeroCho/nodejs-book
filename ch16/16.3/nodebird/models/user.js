@@ -17,7 +17,7 @@ module.exports = class User extends Sequelize.Model {
         allowNull: true,
       },
       provider: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.ENUM('local', 'kakao'),
         allowNull: false,
         defaultValue: 'local',
       },

@@ -35,13 +35,13 @@
         const server = new Date(parseInt(e.data, 10));
         end.setDate(end.getDate() + 1); // 경매 종료 시간
         if (server >= end) { // 경매가 종료되었으면
-          return td.textContent = '00:00:00';
+          td.textContent = '00:00:00';
         } else {
           const t = end - server; // 경매 종료까지 남은 시간
           const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
           const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
           const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
-          return td.textContent = hours + ':' + minutes + ':' + seconds ;
+          td.textContent = hours + ':' + minutes + ':' + seconds ;
         }
       });
     };

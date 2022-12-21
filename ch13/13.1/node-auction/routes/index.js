@@ -3,8 +3,9 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const { Good, Auction, User } = require('../models');
-const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
+const { renderMain, renderJoin, renderGood, createGood } = require('../controllers');
 
 const router = express.Router();
 
@@ -13,28 +14,11 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/', async (req, res, next) => {
-  try {
-    const goods = await Good.findAll({ where: { SoldId: null } });
-    res.render('main', {
-      title: 'NodeAuction',
-      goods,
-    });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+router.get('/', renderMain);
 
-router.get('/join', isNotLoggedIn, (req, res) => {
-  res.render('join', {
-    title: '회원가입 - NodeAuction',
-  });
-});
+router.get('/join', isNotLoggedIn, renderJoin);
 
-router.get('/good', isLoggedIn, (req, res) => {
-  res.render('good', { title: '상품 등록 - NodeAuction' });
-});
+router.get('/good', isLoggedIn, renderGood);
 
 try {
   fs.readdirSync('uploads');
@@ -54,20 +38,6 @@ const upload = multer({
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
-router.post('/good', isLoggedIn, upload.single('img'), async (req, res, next) => {
-  try {
-    const { name, price } = req.body;
-    await Good.create({
-      OwnerId: req.user.id,
-      name,
-      img: req.file.filename,
-      price,
-    });
-    res.redirect('/');
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+router.post('/good', isLoggedIn, upload.single('img'), createGood);
 
 module.exports = router;
