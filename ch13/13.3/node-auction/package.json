@@ -21,7 +21,7 @@
     "nunjucks": "^3.2.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.19.2",
+    "sequelize": "^6.28.2",
     "sequelize-cli": "^6.4.1",
     "socket.io": "^4.5.1",
     "sse": "^0.0.8"
