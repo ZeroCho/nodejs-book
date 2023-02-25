@@ -16,7 +16,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "nunjucks": "^3.2.1",
-    "sequelize": "^6.19.0",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
