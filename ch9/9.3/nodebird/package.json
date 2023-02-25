@@ -20,7 +20,7 @@
     "passport": "^0.6.0",
     "passport-kakao": "^1.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.0.0",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^6.0.0"
   },
   "devDependencies": {
