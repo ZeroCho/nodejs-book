@@ -10,6 +10,6 @@
   "author": "ZeroCho",
   "license": "ISC",
   "devDependencies": {
-    "release-it": "^14.14.2"
+    "release-it": "^15.6.0"
   }
 }
