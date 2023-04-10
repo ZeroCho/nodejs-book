@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.169.0",
-    "aws-sdk": "^2.699.0",
+    "aws-sdk": "^2.1354.0",
     "bcrypt": "^3.0.8",
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.5",
