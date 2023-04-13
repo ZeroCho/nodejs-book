@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
 router.route('/:id')
   .patch(async (req, res, next) => {
     try {
-      const result = await Comment.update({
+      const result = await Comment.updateOne({
         _id: req.params.id,
       }, {
         comment: req.body.comment,
@@ -34,7 +34,7 @@ router.route('/:id')
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Comment.remove({ _id: req.params.id });
+      const result = await Comment.deleteOne({ _id: req.params.id });
       res.json(result);
     } catch (err) {
       console.error(err);

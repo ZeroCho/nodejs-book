@@ -32,7 +32,7 @@
     "passport-local": "^1.0.0",
     "pm2": "^4.4.0",
     "redis": "^3.0.2",
-    "sequelize": "^5.21.13",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^5.5.1",
     "winston": "^3.2.1"
   },

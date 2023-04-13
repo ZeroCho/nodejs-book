@@ -15,11 +15,20 @@ function goInsideRecursively(dir, parentPath = __dirname) {
                 console.log('npm update called at', path.join(parentPath, d));
                 const ls = spawn((process.platform === 'win32' ? 'npm.cmd' : 'npm'), ['install', '--package-lock-only'], { cwd: parentPath });
                 ls.stdout.on('data', (data) => {
-                    console.log(`stdout: ${data}`);
+                    console.log(`${path.join(parentPath, d)} install: ${data}`);
                 });
                 ls.stderr.on('data', (data) => {
-                    console.error(`stderr: ${data}`);
-                })
+                    console.error(`${path.join(parentPath, d)} stderr: ${data}`);
+                });
+                ls.stdout.on('close', () => {
+                    const ls2 = spawn((process.platform === 'win32' ? 'npm.cmd' : 'npm'), ['audit', 'fix'], { cwd: parentPath });
+                    ls2.stdout.on('data', (data) => {
+                        console.log(`${path.join(parentPath, d)} audit: ${data}`);
+                    });
+                    ls2.stderr.on('data', (data) => {
+                        console.error(`${path.join(parentPath, d)} stderr: ${data}`);
+                    })
+                });
             }
         }
     })
