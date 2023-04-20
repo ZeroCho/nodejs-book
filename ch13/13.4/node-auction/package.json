@@ -18,7 +18,7 @@
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
     "node-schedule": "^2.1.0",
-    "nunjucks": "^3.2.0",
+    "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.19.2",
