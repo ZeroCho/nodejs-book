@@ -18,7 +18,7 @@
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
-    "nunjucks": "^3.2.1",
+    "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
