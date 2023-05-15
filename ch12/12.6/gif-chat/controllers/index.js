@@ -1,4 +1,5 @@
 const Room = require('../schemas/room');
+const Chat = require('../schemas/chat');
 const { removeRoom: removeRoomService } = require('../services'); 
 
 exports.renderMain = async (req, res, next) => {
