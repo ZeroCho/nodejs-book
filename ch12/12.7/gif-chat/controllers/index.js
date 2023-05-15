@@ -1,4 +1,5 @@
 const Room = require('../schemas/room');
+const Chat = require('../schemas/chat');
 const { removeRoom: removeRoomService } = require('../services'); 
 
 exports.renderMain = async (req, res, next) => {
@@ -51,10 +52,11 @@ exports.enterRoom = async (req, res, next) => {
     if (room.max <= rooms.get(req.params.id)?.size) {
       return res.redirect('/?error=허용 인원이 초과하였습니다.');
     }
+    const chats = await Chat.find({ room: room._id }).sort('createdAt');
     return res.render('chat', {
       room,
       title: room.title,
-      chats: [],
+      chats,
       user: req.session.color,
     });
   } catch (error) {
