@@ -1,5 +1,5 @@
 const { scheduleJob } = require('node-schedule');
-const { Op } = require('Sequelize');
+const { Op } = require('sequelize');
 const { Good, Auction, User, sequelize } = require('./models');
 
 module.exports = async () => {
