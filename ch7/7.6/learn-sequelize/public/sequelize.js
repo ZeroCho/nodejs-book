@@ -29,7 +29,7 @@ async function getUser() {
       td.textContent = user.age;
       row.appendChild(td);
       td = document.createElement('td');
-      td.textContent = user.married ? '기혼' : '미혼';
+      td.textContent = user.married === "1" ? '기혼' : '미혼';  //married saved in text type
       row.appendChild(td);
       tbody.appendChild(row);
     });
