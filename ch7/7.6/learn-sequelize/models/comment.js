@@ -14,7 +14,7 @@ class Comment extends Sequelize.Model {
       },
     }, {
       sequelize,
-      timestamps: false,
+      timestamps: true, //false => true
       modelName: 'Comment',
       tableName: 'comments',
       paranoid: false,
