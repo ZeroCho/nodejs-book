@@ -36,7 +36,7 @@
           <td>{{user.id}}</td>
           <td>{{user.name}}</td>
           <td>{{user.age}}</td>
-          <td>{{ '기혼' if user.married else '미혼'}}</td>
+          <td>{{ '기혼' if user.married === "1" else '미혼'}}</td>
         </tr>
         {% endfor %}
       </tbody>
