@@ -17,7 +17,7 @@
     "mongoose": "^6.0.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "nunjucks": "^3.2.1",
+    "nunjucks": "^3.2.4",
     "socket.io": "^4.5.0"
   },
   "devDependencies": {
