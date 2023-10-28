@@ -15,7 +15,7 @@
     "express-session": "^1.17.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
-    "nunjucks": "^3.2.1",
+    "nunjucks": "^3.2.4",
     "sequelize": "^6.0.0",
     "sequelize-cli": "^6.0.0"
   },
