@@ -3,10 +3,9 @@ const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
 const min = 2;
 let primes = [];
 
-function findPrimes(start, range) {
+function findPrimes(start, end) {
   let isPrime = true;
-  const end = start + range;
-  for (let i = start; i < end; i++) {
+  for (let i = start; i <= end; i++) {
     for (let j = min; j < Math.sqrt(end); j++) {
       if (i !== j && i % j === 0) {
         isPrime = false;
@@ -28,11 +27,11 @@ if (isMainThread) {
   let start = min;
   console.time('prime');
   for (let i = 0; i < threadCount - 1; i++) {
-    const wStart = start;
-    threads.add(new Worker(__filename, { workerData: { start: wStart, range } }));
+    const end = start + range - 1;
+    threads.add(new Worker(__filename, { workerData: { start, range: end } }));
     start += range;
   }
-  threads.add(new Worker(__filename, { workerData: { start, range: max - start } }));
+  threads.add(new Worker(__filename, { workerData: { start, range: max } }));
   for (let worker of threads) {
     worker.on('error', (err) => {
       throw err;
