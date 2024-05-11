@@ -1,6 +1,8 @@
 const spawn = require('child_process').spawn;
+const path = require('path');
 
-const process = spawn('python', ['test.py']);
+const pythonCodePath = path.join(__dirname, 'test.py');
+const process = spawn('python', [pythonCodePath]);
 
 process.stdout.on('data', function(data) {
   console.log(data.toString());
